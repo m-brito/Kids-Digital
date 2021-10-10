@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #428EFF;
+}
+
+#homePrincipal{
+    width: 100vw;
+    min-height: 100vh;
+}
+
+#homeCabecalho{
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+#homeCabecalho img{
+    height: 50%;
+}
+#homeCabecalho input:not(input[type=submit]){
+    height: 30%;
+    background-color: #97C0FF;
+    border: 0px;
+    padding: 0 0 0 10px;
+}
+#homeCabecalho input[type=submit]{
+    height: 30%;
+    padding: 0 10px;
+    background-color: white;
+    border: 0;
+    font-weight: bold;
+}
