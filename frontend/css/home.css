@@ -1,9 +1,11 @@
+/* =============Geral================== */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ================Cabecalho============= */
 body{
     background-color: #428EFF;
 }
@@ -11,6 +13,7 @@ body{
 #homePrincipal{
     width: 100vw;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 #homeCabecalho{
@@ -20,9 +23,15 @@ body{
     align-items: center;
     padding: 0 20px;
 }
+
 #homeCabecalho img{
     height: 50%;
 }
+
+#homeCabecalho form{
+    margin-right: 20px;
+}
+
 #homeCabecalho input:not(input[type=submit]){
     height: 30%;
     background-color: #97C0FF;
@@ -35,4 +44,78 @@ body{
     background-color: white;
     border: 0;
     font-weight: bold;
+}
+
+/* ==================Conteudo================= */
+#homeConteudo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+}
+#homeConteudo img#imgPrincipal{
+    margin: 50px 0 0 100px;
+}
+#homeConteudo img#lua{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    height: 200px;
+}
+#homeConteudo img#pipa{
+    position: absolute;
+    height: 150px;
+    bottom: -200px;
+    left: 20px;
+}
+#homeConteudo h1#homeFrase{
+    position: absolute;
+    font-size: 50px;
+    color: white;
+    left: 100px;
+    top: 50px;
+}
+
+/* ==============Responsividade============= */
+@media screen and (max-width: 750px) {
+    #homeConteudo img:not(img#imgPrincipal) {
+        display: none;
+    }
+    #homeConteudo img#imgPrincipal {
+        margin-top: 150px;
+        width: 70%;
+    }
+    #homeConteudo h1#homeFrase{
+        display: flex;
+        justify-content: center;
+        right: initial;
+        left: 0;
+        width: 100%;
+        font-size:35px;
+        text-align: center;
+    }
+
+    #homeCabecalho{
+        padding-top: 25px;
+        height: auto;
+        flex-direction: column;
+    }
+    #homeCabecalho form{
+        margin-top: 25px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+    }
+    #homeCabecalho form input{
+        margin: 5px 0;
+        height: 30px !important;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    #homeConteudo img{
+        display: none;
+    }
 }
