@@ -21,7 +21,10 @@ window.onload = function() {
         console.log('meu heroi')
     })
     document.getElementById('btnSair').addEventListener('click', () => {
-       
+        document.cookie = `apelido=`;
+        document.cookie = `ipUsuario=`;
+        mostrarMensagem('Saindo...');
+        window.location.href = '/index.html';
     })
     document.getElementById('verRanking').addEventListener('click', () => {
         console.log('Ver ranking')
