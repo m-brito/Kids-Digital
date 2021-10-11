@@ -11,17 +11,18 @@ body{
 }
 
 #homePrincipal{
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 #homeCabecalho{
     height: 10%;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 100px;
 }
 
 #homeCabecalho img{
@@ -51,10 +52,12 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 70%;
     position: relative;
+    margin: auto;
 }
 #homeConteudo img#imgPrincipal{
+    width: 500px;
     margin: 50px 0 0 100px;
 }
 #homeConteudo img#lua{
@@ -77,14 +80,58 @@ body{
     top: 50px;
 }
 
+/* ===============Convite====================== */
+
+#homeConvite{
+    margin: 250px 0 0 0;
+    width: 100%;
+    padding: 0 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#homeConvite #cabecalhoConvite{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#homeConvite #cabecalhoConvite h2{
+    color: white;
+    width: 50%;
+    font-size: 50px;
+}
+
+#homeConvite form{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 100px 0;
+}
+#homeConvite form input:not(input[type=submit]){
+    margin: 5px 0;
+    height: 30px;
+    background-color: #97C0FF;
+    border: 0px;
+    padding: 0 0 0 10px;
+}
+
+#homeConvite form input[type=submit] {
+    height: 30px;
+    padding: 0 10px;
+    background-color: white;
+    border: 0;
+    font-weight: bold;
+}
+
 /* ==============Responsividade============= */
 @media screen and (max-width: 750px) {
     #homeConteudo img:not(img#imgPrincipal) {
         display: none;
     }
     #homeConteudo img#imgPrincipal {
-        margin-top: 150px;
+        margin: 150px 0 0 0;
         width: 70%;
+        display: flex;
     }
     #homeConteudo h1#homeFrase{
         display: flex;
@@ -112,10 +159,24 @@ body{
         margin: 5px 0;
         height: 30px !important;
     }
+    #homeConvite{
+        margin-top: 50px;
+    }
+    #homeConvite #cabecalhoConvite{
+        flex-direction: column;
+    }
+    #homeConvite #cabecalhoConvite h2{
+        width: 90%;
+        text-align: center;
+        font-size: 40px;
+    }
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 400px) {
     #homeConteudo img{
-        display: none;
+        display: none !important;
+    }
+    #homeConteudo h1#homeFrase{
+        position: relative;
     }
 }
