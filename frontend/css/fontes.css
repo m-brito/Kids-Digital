@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto+Slab:wght@300;400;600;700;800;900&display=swap');
+
+h1{
+    font-family: 'Roboto Slab', serif;
+    font-weight: 800;
+}
+h2{
+    font-family: 'Roboto Slab', serif;
+    font-weight: 600;
+}
+p{
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+}

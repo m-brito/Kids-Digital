@@ -104,13 +104,15 @@ body{
 }
 
 #homeConvite form{
+    width: 15%;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     margin: 0 0 100px 0;
 }
 #homeConvite form input:not(input[type=submit]){
     margin: 5px 0;
-    height: 30px;
+    height: 40px;
     background-color: #97C0FF;
     border: 0px;
     padding: 0 0 0 10px;
