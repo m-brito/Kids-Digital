@@ -99,10 +99,17 @@ function pegarCookies(cookieNome) {
 }
 
 // =====================Verifica Login===================
-function verificarLogin() {
+async function verificarLogin() {
     const usuario = pegarCookies('apelido');
     const ipUsuario = pegarCookies('ipUsuario');
     if(usuario == '' || ipUsuario == '' || usuario == undefined || ipUsuario == undefined || usuario == null || ipUsuario == null) {
+        mostrarMensagem('Usuario não logado!');
+        setTimeout(() => {
+            window.location.href = '/index.html';
+        }, 2000);
+    }
+    const resp = await procurarUsuario(ipUsuario, usuario);
+    if(resp.length==0) {
         mostrarMensagem('Usuario não logado!');
         setTimeout(() => {
             window.location.href = '/index.html';
