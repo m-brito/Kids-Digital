@@ -112,7 +112,7 @@ async function verificarLogin() {
     if(resp.length==0) {
         document.cookie = `apelido=`;
         document.cookie = `ipUsuario=`;
-        mostrarMensagem('Usuario não logado!');
+        mostrarMensagem('Usuario não encontrado!');
         setTimeout(() => {
             window.location.href = '/index.html';
         }, 2000);

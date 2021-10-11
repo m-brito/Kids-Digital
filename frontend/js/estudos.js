@@ -17,7 +17,7 @@ window.onload = function() {
         }, 2000);
     })
     document.getElementById('verRanking').addEventListener('click', () => {
-        console.log('Ver ranking')
+        window.location.href = '/ranking.html';
     })
 
     // ======================Buscar Conteudos=====================

@@ -1,0 +1,51 @@
+/* ==================Cabecalho================ */
+#rankingPrincipal{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+}
+
+#rankingPrincipal #rankingCabecalho{
+    width: 100%;
+    padding: 10px;
+}
+#rankingPrincipal #rankingCabecalho img{
+    height: 100px;
+    cursor: pointer;
+}
+
+/* ================Conteudo=============== */
+#rankingConteudo{
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* ================Ranking==================== */
+
+#rankingConteudo #rankingtitulo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#rankingConteudo #rankingtitulo img{
+    height: 100px;
+}
+#rankingConteudo #rankingtitulo h1#h1RankingTitulo{
+    color: white;
+    font-size: 50px;
+}
+
+/* ================Placar======================== */
+#rankingConteudo #ranking{
+    margin: 50px 0 0 0;
+    display: flex;
+}
+#rankingConteudo div#posicoesRanking{
+    flex: 1;
+}
+#rankingConteudo img{
+    height: 300px;
+}
