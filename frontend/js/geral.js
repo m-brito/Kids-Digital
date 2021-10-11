@@ -98,3 +98,15 @@ function pegarCookies(cookieNome) {
     return "";
 }
 
+// =====================Verifica Login===================
+function verificarLogin() {
+    const usuario = pegarCookies('apelido');
+    const ipUsuario = pegarCookies('ipUsuario');
+    if(usuario == '' || ipUsuario == '' || usuario == undefined || ipUsuario == undefined || usuario == null || ipUsuario == null) {
+        mostrarMensagem('Usuario não logado!');
+        setTimeout(() => {
+            window.location.href = '/index.html';
+        }, 2000);
+    }
+}
+

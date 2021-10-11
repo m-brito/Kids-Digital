@@ -3,16 +3,6 @@ window.onload = function() {
     populaConteudos();
     // var proximoNivel = Math.pow((nivel + 1) * 4, 2)
 
-    // =====================Verifica Login===================
-    function verificarLogin() {
-        const usuario = pegarCookies('apelido');
-        const ipUsuario = pegarCookies('ipUsuario');
-        if(usuario == '' || ipUsuario == '' || usuario == undefined || ipUsuario == undefined || usuario == null || ipUsuario == null) {
-            mostrarMensagem('Usuario não logado!');
-            window.location.href = '/index.html';
-        }
-    }
-
     // ===================Botoes Cabecalho======================
 
     document.getElementById('btnMeuHeroi').addEventListener('click', () => {
