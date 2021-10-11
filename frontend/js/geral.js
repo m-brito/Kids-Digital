@@ -1,7 +1,7 @@
 var trocarImagem;
 var imagens = ["/herois/mulher-maravilha/mulher-maravilha-1.png", "/herois/naruto/naruto-1.png", "/herois/mulher-maravilha/mulher-maravilha-2.png", "/herois/naruto/naruto-2.png", "/herois/mulher-maravilha/mulher-maravilha-3.png", "/herois/naruto/naruto-3.png", "/herois/mulher-maravilha/mulher-maravilha-4.png", "/herois/naruto/naruto-4.png"];
 
-var host = '';
+var host = 'https://kids-digital.herokuapp.com';
 
 //  ==========Sortear===============
 function sorteador(max) {
