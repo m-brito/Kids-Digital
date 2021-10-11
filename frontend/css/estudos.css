@@ -3,3 +3,42 @@
     width: 100%;
     background-color: #428EFF;
 }
+
+#estudosPrincipal #estudosCabecalho{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+#estudosPrincipal #estudosCabecalho img#verRanking{
+    height: 100px;
+    cursor: pointer;
+}
+#estudosPrincipal #estudosCabecalho button{
+    height: 40px;
+    border: 0;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    transition: 0.5s;
+}
+
+#estudosPrincipal #estudosCabecalho button#btnMeuHeroi{
+    width: 150px;
+    background-color: #fed22b;
+}
+#estudosPrincipal #estudosCabecalho button#btnMeuHeroi:hover{
+    width: 150px;
+    background-color: #e3b400;
+}
+#estudosPrincipal #estudosCabecalho button#btnSair{
+    width: 50px;
+    background-color: #ff3e3e;
+}
+#estudosPrincipal #estudosCabecalho button#btnSair:hover{
+    width: 50px;
+    background-color: #dd2020;
+}
