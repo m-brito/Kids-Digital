@@ -1,6 +1,19 @@
 window.onload = function() {
+    verificarLogin();
     populaConteudos();
     // var proximoNivel = Math.pow((nivel + 1) * 4, 2)
+
+    // =====================Verifica Login===================
+    function verificarLogin() {
+        const usuario = pegarCookies('apelido');
+        const ipUsuario = pegarCookies('ipUsuario');
+        if(usuario == '' || ipUsuario == '' || usuario == undefined || ipUsuario == undefined || usuario == null || ipUsuario == null) {
+            mostrarMensagem('Usuario não logado!');
+            window.location.href = '/index.html';
+        } else {
+            mostrarMensagem('Usuario logado com sucesso!');
+        }
+    }
 
     // ===================Botoes Cabecalho======================
 
@@ -8,7 +21,7 @@ window.onload = function() {
         console.log('meu heroi')
     })
     document.getElementById('btnSair').addEventListener('click', () => {
-        console.log('Sair')
+       
     })
     document.getElementById('verRanking').addEventListener('click', () => {
         console.log('Ver ranking')
