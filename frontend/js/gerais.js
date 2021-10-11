@@ -23,3 +23,22 @@ function pararCarregamento() {
     document.getElementById('carregamento').style.display = 'none';
     clearInterval(trocarImagem)
 }
+
+// =============Pegar IP==========
+async function pegarIp() {
+    const resp = await fetch(`https://api64.ipify.org?format=json`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data.ip)
+}
+
+// ==============Procurar Usuario===================
+async function procurarUsuario(ip, nome) {
+    const resp = await fetch(`https://kids-digital.herokuapp.com/usuario/get-ip?ip=${ip}&nome=${nome}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data)
+}
+
