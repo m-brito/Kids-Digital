@@ -97,6 +97,21 @@
 }
 
 /* =======================Responsividade - Estudos==================== */
-@media screen and(max-width: 700px) {
-    
+@media(max-width: 700px) {
+    #estudosPrincipal #estudosConteudo #estudoConteudoMateriais{
+        flex-direction: column;
+    }
+
+    #estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais{
+        padding: 0 30px;
+    }
+
+    #estudosPrincipal #estudosConteudo #estudoConteudoMateriais img{
+        max-width: 205px;
+        margin: auto;
+    }
+
+    #estudosPrincipal #estudosCabecalho{
+        flex-direction: column;
+    }
 }
