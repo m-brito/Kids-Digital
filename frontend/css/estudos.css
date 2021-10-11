@@ -4,6 +4,8 @@
     background-color: #428EFF;
 }
 
+/* ==============Cabecalho===================== */
+
 #estudosPrincipal #estudosCabecalho{
     width: 100%;
     display: flex;
@@ -41,4 +43,55 @@
 #estudosPrincipal #estudosCabecalho button#btnSair:hover{
     width: 50px;
     background-color: #dd2020;
+}
+
+/* ==========================Conteudo======================== */
+
+#estudosPrincipal #estudosConteudo{
+    width: 100%;
+    margin: 50px auto;
+}
+#estudosPrincipal #estudosConteudo h1{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+}
+
+/* ==================Div - Materiais================== */
+
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais{
+    display: flex;
+    margin: 100px 0 0 0;
+}
+/* ================Garoto/Garota=========== */
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais div#materiais{
+    flex: 1;
+}
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais img{
+    height: 300px;
+}
+
+/* ======================Botoes - Materiais=================== */
+
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais{
+    display: flex;
+    flex-direction: column;
+}
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button{
+    transition: 0.5s;
+    height: 50px;
+    border: 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    background-color: #97C0FF;
+    cursor: pointer;
+    margin: 10px 0;
+}
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button:hover{
+    transition: 0.5s;
+    background-color: #a9cbff;
 }

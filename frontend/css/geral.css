@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+/* =================Tela de carregamento============ */
+
 #carregamento{
   position: fixed;
   display: none;
@@ -24,6 +26,8 @@
   animation: animacaoImg 1s infinite alternate;
 }
 
+
+/* =====================Mensagens de aviso na tela============ */
 #mensagemTela{
   display: none;
   align-items: center;
@@ -37,6 +41,8 @@
   color: white;
   font-size: 25px;
 }
+
+/* ==================Animacoes================= */
 
 @keyframes animacaoImg {
   from {
