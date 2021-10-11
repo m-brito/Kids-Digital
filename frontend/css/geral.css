@@ -17,6 +17,9 @@
   color: white;
   font-size: 25px;
 }
+#carregamento #divImgCarregamento{
+  height: 225px;
+}
 #carregamento img{
   animation: animacaoImg 1s infinite alternate;
 }
@@ -41,6 +44,6 @@
   }
 
   to {
-    height: 200px;
+    height: 190px;
   }
 }

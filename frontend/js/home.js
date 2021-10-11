@@ -1,4 +1,5 @@
 window.onload = function() {
+    carregamento()
     // =========Entrar====================
     document.querySelector('#homeEntrar').addEventListener('submit', async (event) => {
         event.preventDefault();
