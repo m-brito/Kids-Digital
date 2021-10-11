@@ -110,6 +110,8 @@ async function verificarLogin() {
     }
     const resp = await procurarUsuario(ipUsuario, usuario);
     if(resp.length==0) {
+        document.cookie = `apelido=`;
+        document.cookie = `ipUsuario=`;
         mostrarMensagem('Usuario não logado!');
         setTimeout(() => {
             window.location.href = '/index.html';
