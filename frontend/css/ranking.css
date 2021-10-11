@@ -85,3 +85,15 @@
 #rankingConteudo #posicoesRanking .usuarioPlacar .nomeUsuario p, #rankingConteudo #posicoesRanking .usuarioPlacar .numeroPosicao p{
     word-break: break-word;
 }
+
+/* =============================Responsividade======================== */
+
+@media(max-width: 800px) {
+    #rankingConteudo img{
+        display: none !important;
+    }
+
+    #rankingConteudo{
+        padding: 0 20px;
+    }
+}
