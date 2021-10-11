@@ -40,7 +40,7 @@
 
 /* ================Placar======================== */
 #rankingConteudo #ranking{
-    margin: 50px 0 0 0;
+    margin: 50px 0;
     display: flex;
 }
 #rankingConteudo div#posicoesRanking{
@@ -48,4 +48,40 @@
 }
 #rankingConteudo img{
     height: 300px;
+}
+
+#rankingConteudo #posicoesRanking .usuarioPlacar{
+    min-height: 60px;
+    padding: 5px;
+    background-color: #97C0FF;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+#rankingConteudo #posicoesRanking .usuarioPlacar .numeroPosicao{
+    min-height: 50px;
+    min-width: 50px;
+    max-width: 150px;
+    font-size: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#rankingConteudo #posicoesRanking .usuarioPlacar .numeroPosicao p{
+    min-width: 50px;
+    max-width: 150px;
+}
+#rankingConteudo #posicoesRanking .usuarioPlacar .nomeUsuario{
+    min-height: 50px;
+    flex: 1;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#rankingConteudo #posicoesRanking .usuarioPlacar .nomeUsuario p, #rankingConteudo #posicoesRanking .usuarioPlacar .numeroPosicao p{
+    word-break: break-word;
 }

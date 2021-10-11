@@ -66,6 +66,15 @@ async function procurarUsuarioNome(nome) {
     return(data);
 }
 
+// =================Buscar Ranking================
+async function buscarRanking() {
+    const resp = await fetch(`${host}/usuario/get-ranking`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
 // ====================Cadastrar Usuario================
 async function cadastrarUsuario(ip, nome) {
     await fetch(`${host}/usuario/add`, {
@@ -107,15 +116,16 @@ async function verificarLogin() {
         setTimeout(() => {
             window.location.href = '/index.html';
         }, 2000);
-    }
-    const resp = await procurarUsuario(ipUsuario, usuario);
-    if(resp.length==0) {
-        document.cookie = `apelido=`;
-        document.cookie = `ipUsuario=`;
-        mostrarMensagem('Usuario não encontrado!');
-        setTimeout(() => {
-            window.location.href = '/index.html';
-        }, 2000);
+    } else {
+        const resp = await procurarUsuario(ipUsuario, usuario);
+        if(resp.length==0) {
+            document.cookie = `apelido=`;
+            document.cookie = `ipUsuario=`;
+            mostrarMensagem('Usuario não encontrado!');
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 2000);
+        }
     }
 }
 
