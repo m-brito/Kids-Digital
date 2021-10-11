@@ -1,7 +1,7 @@
 var trocarImagem;
 var imagens = ["/herois/mulher-maravilha/mulher-maravilha-1.png", "/herois/naruto/naruto-1.png", "/herois/mulher-maravilha/mulher-maravilha-2.png", "/herois/naruto/naruto-2.png", "/herois/mulher-maravilha/mulher-maravilha-3.png", "/herois/naruto/naruto-3.png", "/herois/mulher-maravilha/mulher-maravilha-4.png", "/herois/naruto/naruto-4.png"];
 
-var host = 'https://kids-digital.herokuapp.com';
+var host = '';
 
 //  ==========Sortear===============
 function sorteador(max) {
@@ -77,5 +77,22 @@ async function cadastrarUsuario(ip, nome) {
             "nome": nome
         })
     });
+}
+
+// =================Pegar Cookies================
+function pegarCookies(cookieNome) {
+    let nome = cookieNome + "=";
+    let decodificarCookie = decodeURIComponent(document.cookie);
+    let ca = decodificarCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(nome) == 0) {
+        return c.substring(nome.length, c.length);
+      }
+    }
+    return "";
 }
 

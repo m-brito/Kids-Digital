@@ -11,6 +11,8 @@ window.onload = function() {
             pararCarregamento();
             if(resp.length > 0) {
                 console.log('encontrou');
+                document.cookie = `apelido=${apelidoEntrar}`;
+                document.cookie = `ipUsuario=${ipUsuario}`;
             } else {
                 mostrarMensagem('Usuario não encontrado!');
             }
@@ -32,7 +34,9 @@ window.onload = function() {
             if(resp.length > 0) {
                 mostrarMensagem('Este apelido ja esta em uso!');
             } else {
-                cadastrarUsuario(ipUsuario, apelidoCadastrar)
+                cadastrarUsuario(ipUsuario, apelidoCadastrar);
+                document.cookie = `apelido=${apelidoCadastrar}`;
+                document.cookie = `ipUsuario=${ipUsuario}`;
             }
         } catch (error) {
             console.log(error);
