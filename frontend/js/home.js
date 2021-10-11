@@ -10,10 +10,9 @@ window.onload = function() {
             document.getElementById('campoApelidoEntrar').value = '';
             pararCarregamento();
             if(resp.length > 0) {
-                console.log(host)
-                console.log('encontrou');
                 document.cookie = `apelido=${apelidoEntrar}`;
                 document.cookie = `ipUsuario=${ipUsuario}`;
+                window.location.href = '/estudos.html';
             } else {
                 mostrarMensagem('Usuario não encontrado!');
             }
@@ -38,6 +37,7 @@ window.onload = function() {
                 cadastrarUsuario(ipUsuario, apelidoCadastrar);
                 document.cookie = `apelido=${apelidoCadastrar}`;
                 document.cookie = `ipUsuario=${ipUsuario}`;
+                window.location.href = '/estudos.html';
             }
         } catch (error) {
             console.log(error);

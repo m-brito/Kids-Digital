@@ -1,1 +1,0 @@
-var proximoNivel = Math.pow((nivel + 1) * 4, 2)
