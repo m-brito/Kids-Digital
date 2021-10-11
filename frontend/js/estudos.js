@@ -10,8 +10,6 @@ window.onload = function() {
         if(usuario == '' || ipUsuario == '' || usuario == undefined || ipUsuario == undefined || usuario == null || ipUsuario == null) {
             mostrarMensagem('Usuario não logado!');
             window.location.href = '/index.html';
-        } else {
-            mostrarMensagem('Usuario logado com sucesso!');
         }
     }
 
@@ -24,7 +22,9 @@ window.onload = function() {
         document.cookie = `apelido=`;
         document.cookie = `ipUsuario=`;
         mostrarMensagem('Saindo...');
-        window.location.href = '/index.html';
+        setTimeout(() => {
+            window.location.href = '/index.html';
+        }, 2000);
     })
     document.getElementById('verRanking').addEventListener('click', () => {
         console.log('Ver ranking')
