@@ -10,6 +10,7 @@ window.onload = function() {
             document.getElementById('campoApelidoEntrar').value = '';
             pararCarregamento();
             if(resp.length > 0) {
+                console.log(host)
                 console.log('encontrou');
                 document.cookie = `apelido=${apelidoEntrar}`;
                 document.cookie = `ipUsuario=${ipUsuario}`;
