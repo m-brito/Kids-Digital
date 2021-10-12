@@ -75,6 +75,24 @@ async function buscarRanking() {
     return(data);
 }
 
+// =================Buscar Conteudo======================
+async function buscarConteudoId(id) {
+    const resp = await fetch(`${host}/conteudo/get-id?id=${id}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
+// =================Buscar Questionario======================
+async function buscarQuestionarioId(id) {
+    const resp = await fetch(`${host}/questionario/get-id?id=${id}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
 // ====================Cadastrar Usuario================
 async function cadastrarUsuario(ip, nome) {
     await fetch(`${host}/usuario/add`, {
