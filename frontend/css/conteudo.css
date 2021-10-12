@@ -1,0 +1,17 @@
+/* ==================Cabecalho================ */
+#conteudoPrincipal{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    min-width: 400px;
+}
+
+#conteudoPrincipal #conteudoCabecalho{
+    width: 100%;
+    padding: 10px;
+}
+#conteudoPrincipal #conteudoCabecalho img{
+    height: 100px;
+    cursor: pointer;
+}

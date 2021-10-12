@@ -135,3 +135,22 @@ function calculaXpProximoNivel(nivelAtual) {
     return proximoNivel;
 }
 
+// ==================Parametro URL======================
+function parametroUrl(parametro) {
+    var url = location.search.substring(1, location.search.length);
+    var valorParametro = false;
+    var parametros = url.split("&");
+    for (i=0; i<parametros.length;i++) {
+        nomeParametro = parametros[i].substring(0,parametros[i].indexOf('='));
+        if (nomeParametro == parametro) {
+            valorParametro = parametros[i].substring(parametros[i].indexOf('=')+1)
+        }
+    }
+    if (valorParametro) {
+        return valorParametro;
+    }
+    else {
+        return undefined;
+    }
+}
+

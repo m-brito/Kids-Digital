@@ -35,9 +35,11 @@ window.onload = function() {
             if(resp.length > 0) {
                 mostrarMensagem('Este apelido ja esta em uso!');
             } else {
+                carregamento();
                 await cadastrarUsuario(ipUsuario, apelidoCadastrar);
                 document.cookie = `apelido=${apelidoCadastrar}`;
                 document.cookie = `ipUsuario=${ipUsuario}`;
+                pararCarregamento();
                 window.location.href = '/estudos.html';
             }
         } catch (error) {

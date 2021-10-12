@@ -41,13 +41,13 @@ window.onload = function() {
         pararCarregamento();
         for(let x = 0; x < conteudos.length; x++) {
             document.getElementById('materiais').innerHTML += `
-                <button id="${conteudos[x].idQuestionario}" onclick="irConteudo(this.id)" class="conteudoBotao">${conteudos[x].nome}</button>
+                <button id="${conteudos[x].id}" onclick="irConteudo(this.id)" class="conteudoBotao">${conteudos[x].nome}</button>
             `;
         }
     }
 }
 
 // ==================Ir para Conteudo=================
-function irConteudo(idQuestionario) {
-    console.log(idQuestionario)
+function irConteudo(idConteudo) {
+    window.location.href = `/conteudo.html?c=${idConteudo}`;
 }
