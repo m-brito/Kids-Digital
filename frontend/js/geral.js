@@ -93,6 +93,15 @@ async function buscarQuestionarioId(id) {
     return(data);
 }
 
+// =================Buscar Perguntas de Questionario======================
+async function buscarPerguntasQuestionario(idQuestionario) {
+    const resp = await fetch(`${host}/pergunta/get-idQuestionario?id=${idQuestionario}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
 // ====================Cadastrar Usuario================
 async function cadastrarUsuario(ip, nome) {
     await fetch(`${host}/usuario/add`, {

@@ -33,6 +33,9 @@ window.onload = function() {
     }
 }
 
-function fazerQuestionario(id){
-    console.log('Questionario: ', id)
+async function fazerQuestionario(id){
+    carregamento();
+    const perguntas = await buscarPerguntasQuestionario(id);
+    pararCarregamento();
+    console.log('Questionario: ',id, perguntas)
 }
