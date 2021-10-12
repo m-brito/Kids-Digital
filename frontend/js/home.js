@@ -35,7 +35,7 @@ window.onload = function() {
             if(resp.length > 0) {
                 mostrarMensagem('Este apelido ja esta em uso!');
             } else {
-                cadastrarUsuario(ipUsuario, apelidoCadastrar);
+                await cadastrarUsuario(ipUsuario, apelidoCadastrar);
                 document.cookie = `apelido=${apelidoCadastrar}`;
                 document.cookie = `ipUsuario=${ipUsuario}`;
                 window.location.href = '/estudos.html';

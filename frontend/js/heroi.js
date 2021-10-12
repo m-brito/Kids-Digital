@@ -66,9 +66,9 @@ async function heroiEscolhido(nome) {
 }
 
 async function mudarHeroiUsuario(heroi) {
+    carregamento();
     const ipUsuario = await pegarIp();
     const usuario = pegarCookies('apelido');
-    console.log(heroi)
     try {
         if(heroi == heroisParaEscolha[0] || heroi == heroisParaEscolha[1]) {
             const resp = await fetch(`${host}/usuario/patch?ip=${ipUsuario}&nome=${usuario}`, {
@@ -83,10 +83,12 @@ async function mudarHeroiUsuario(heroi) {
             })
         }
         window.location.reload();
+        pararCarregamento();
     } catch (error) {
         mostrarMensagem('Tivemos problemas de conexao com o servidor!');
         setTimeout(() => {
             window.location.reload();
         }, 2000);
     }
+    pararCarregamento();
 }
