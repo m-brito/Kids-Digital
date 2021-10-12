@@ -6,7 +6,7 @@ window.onload = function() {
     // ===================Botoes Cabecalho======================
 
     document.getElementById('btnMeuHeroi').addEventListener('click', () => {
-        console.log('meu heroi')
+        window.location.href = '/heroi.html';
     })
     document.getElementById('btnSair').addEventListener('click', () => {
         document.cookie = `apelido=`;
