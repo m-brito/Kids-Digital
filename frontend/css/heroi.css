@@ -73,3 +73,56 @@
 }
 
 /* ======================Escolher Heroi====================== */
+#escolherHeroi{
+    min-height: 100vh;
+    width: 100%;
+    position: fixed;
+    background-color: #428eff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#escolherHeroi img#voltarHome{
+    height: 100px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+/* ====================Cartao Heroi============================= */
+#escolherHeroi .heroi{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 50px;
+}
+#escolherHeroi .heroi .escolherHeroiImagem{
+    height: 225px;
+    display: flex;
+    flex-direction: column;
+}
+#escolherHeroi .heroi .escolherHeroiImagem img{
+    height: 225px;
+}
+
+#escolherHeroi .heroi button{
+    height: 30px;
+    width: 125px;
+    margin: auto;
+    border: 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #39cf25;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#escolherHeroi .heroi button:hover{
+    transition: 0.5s;
+    background-color: #26b113;
+}

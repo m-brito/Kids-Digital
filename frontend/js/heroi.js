@@ -1,3 +1,5 @@
+var heroisParaEscolha = ['mulher-maravilha', 'naruto'];
+
 window.onload = function() {
     verificarLogin();
     verificarExistenciaHeroi();
@@ -5,7 +7,7 @@ window.onload = function() {
     // ==============Escutador imagem - voltar=================
     document.getElementById('voltar').addEventListener('click', () => {
         window.location.href = '/estudos.html';
-    })
+    });
 
     // ====================Verificar Heroi e popular===============
 
@@ -17,12 +19,12 @@ window.onload = function() {
             escolherHeroi(ipUsuario, usuario);
         } else {
             const xpProximoNivel = calculaXpProximoNivel(respUsuario[0].nivel);
-            populaDadosHeroi(respUsuario[0].experiencia, xpProximoNivel, respUsuario[0].nivel);
+            populaDadosHeroi(respUsuario[0].experiencia, xpProximoNivel, respUsuario[0].nivel, respUsuario[0].heroi);
         }
     }
 
     // ==============Popular Dados======================
-    function populaDadosHeroi(xpAtual, xpProximoNivel, nivelAtual) {
+    function populaDadosHeroi(xpAtual, xpProximoNivel, nivelAtual, heroi) {
         document.getElementById('tituloMeuHeroi').innerHTML = `Meu Herói - <em><strong style="color: #fed22b;">${xpAtual}Xp/${xpProximoNivel}Xp</strong></em>`;
         document.getElementById('containerExperiencia').innerHTML = `
             <span id="nivelAtual"><p>${nivelAtual}</p></span>
@@ -32,10 +34,59 @@ window.onload = function() {
             </div>
             <span id="proximoNivel"><p>${parseInt(nivelAtual+1)}</p></span>
         `;
+        document.getElementById('heroi').innerHTML = `
+            <img id="imagemMeuHeroi" src="herois/${heroi}/${heroi}-${nivelAtual}.png" alt="Herói">
+        `;
     }
 
     // ===================Escolher Heroi========================
-    async function escolherHeroi(ipUsuario, usuario) {
-        
+    async function escolherHeroi() {
+        document.getElementById('escolherHeroi').style.display = 'flex';
+        document.getElementById('escolherHeroi').innerHTML = `<img id="voltarHome" onclick="voltarHome()" src="imgs/voltar.png" alt="Voltar">`;
+        for(let x = 0; x < heroisParaEscolha.length; x++) {
+            document.getElementById('escolherHeroi').innerHTML += `
+                <div class="heroi">
+                    <div class="escolherHeroiImagem">
+                        <img src="herois/${heroisParaEscolha[x]}/${heroisParaEscolha[x]}-1.png" alt="${heroisParaEscolha[x]}">
+                    </div>
+                    <button id="${heroisParaEscolha[x]}" class="escolherHeroi" onclick="heroiEscolhido(this.id)">Escolher</button>
+                </div>
+            `;
+        }
+    }
+}
+function voltarHome() {
+    window.location.href = '/estudos.html';
+}
+
+async function heroiEscolhido(nome) {
+    document.getElementById('escolherHeroi').innerHTML = '';
+    document.getElementById('escolherHeroi').style.display = 'none';
+    mudarHeroiUsuario(nome);
+}
+
+async function mudarHeroiUsuario(heroi) {
+    const ipUsuario = await pegarIp();
+    const usuario = pegarCookies('apelido');
+    console.log(heroi)
+    try {
+        if(heroi == heroisParaEscolha[0] || heroi == heroisParaEscolha[1]) {
+            const resp = await fetch(`${host}/usuario/patch?ip=${ipUsuario}&nome=${usuario}`, {
+                method: "PATCH",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "heroi": heroi
+                })
+            })
+        }
+        window.location.reload();
+    } catch (error) {
+        mostrarMensagem('Tivemos problemas de conexao com o servidor!');
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
     }
 }
