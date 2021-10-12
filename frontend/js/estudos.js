@@ -1,7 +1,6 @@
 window.onload = function() {
     verificarLogin();
     populaConteudos();
-    // var proximoNivel = Math.pow((nivel + 1) * 4, 2)
 
     // ===================Botoes Cabecalho======================
 

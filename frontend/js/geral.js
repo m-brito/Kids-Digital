@@ -129,3 +129,9 @@ async function verificarLogin() {
     }
 }
 
+// =================Calcular Niveis===================
+function calculaXpProximoNivel(nivelAtual) {
+    const proximoNivel = Math.pow((nivelAtual + 1) * 4, 2)
+    return proximoNivel;
+}
+
