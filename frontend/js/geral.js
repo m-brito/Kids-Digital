@@ -132,8 +132,9 @@ async function ganhaExperiencia(ip, nome, qtdeExperiencia) {
     const novaExperiencia = usuario[0].experiencia + qtdeExperiencia;
     let nivel = usuario[0].nivel;
     const proxNivel = calculaXpProximoNivel(nivel);
-    if(novaExperiencia >= proxNivel) {
+    while(novaExperiencia >= proxNivel) {
         nivel++;
+        proxNivel = calculaXpProximoNivel(nivel);
     }
     await fetch(`${host}/usuario/patch?ip=${ip}&nome=${nome}`, {
         method: "PATCH",
