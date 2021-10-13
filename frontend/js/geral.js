@@ -41,7 +41,7 @@ async function mostrarMensagem(mensagem) {
 
 // =============Pegar IP==========
 async function pegarIp() {
-    const resp = await fetch(`https://api64.ipify.org?format=json`, {
+    const resp = await fetch(`https://api.ipify.org?format=json`, {
         "method": "GET"
     })
     const data = await resp.json();
@@ -102,6 +102,15 @@ async function buscarPerguntasQuestionario(idQuestionario) {
     return(data);
 }
 
+// =================Buscar Resultado de Questionario-Usuario======================
+async function buscarResultadoQuestionario(idQuestionario, idUsuario) {
+    const resp = await fetch(`${host}/resultado/get-idUsuarioQuest?idUsuario=${idUsuario}&idQuestionario=${idQuestionario}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
 // ====================Cadastrar Usuario================
 async function cadastrarUsuario(ip, nome) {
     await fetch(`${host}/usuario/add`, {
@@ -115,6 +124,63 @@ async function cadastrarUsuario(ip, nome) {
             "nome": nome
         })
     });
+}
+
+// =======================Ganhar XP=======================
+async function ganhaExperiencia(ip, nome, qtdeExperiencia) {
+    const usuario = await procurarUsuario(ip, nome);
+    const novaExperiencia = usuario[0].experiencia + qtdeExperiencia;
+    let nivel = usuario[0].nivel;
+    const proxNivel = calculaXpProximoNivel(nivel);
+    if(novaExperiencia >= proxNivel) {
+        nivel++;
+    }
+    await fetch(`${host}/usuario/patch?ip=${ip}&nome=${nome}`, {
+        method: "PATCH",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "nivel": nivel,
+            "experiencia": novaExperiencia
+        })
+    });
+}
+
+// =================Cadastrar Resultado=======================
+async function cadastrarResultado(idQuestionario, acertos) {
+    carregamento();
+    var ipUsuario = await pegarIp();
+    var apelido = pegarCookies('apelido');
+    var usuario = await procurarUsuario(ipUsuario, apelido);
+    var existeResultado = await buscarResultadoQuestionario(idQuestionario, usuario[0].id);
+    if(existeResultado.length == 0) {
+        await fetch(`${host}/resultado/add`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "idUsuario": usuario[0].id,
+                "idQuestionario": idQuestionario,
+                "acertos": acertos
+            })
+        });
+    } else {
+        await fetch(`${host}/resultado/patch?id=${existeResultado[0].id}`, {
+            method: "PATCH",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "acertos": acertos
+            })
+        });
+    }
+    pararCarregamento();
 }
 
 // =================Pegar Cookies================
@@ -148,7 +214,7 @@ async function verificarLogin() {
         if(resp.length==0) {
             document.cookie = `apelido=`;
             document.cookie = `ipUsuario=`;
-            mostrarMensagem('Usuario não encontrado!');
+            mostrarMensagem('Usuario não encontrado nesta maquina!');
             setTimeout(() => {
                 window.location.href = '/index.html';
             }, 2000);

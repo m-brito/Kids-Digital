@@ -25,6 +25,8 @@ window.onload = function() {
 
     // ==============Popular Dados======================
     function populaDadosHeroi(xpAtual, xpProximoNivel, nivelAtual, heroi) {
+        let nivelMeuHeroi = nivelAtual;
+        
         document.getElementById('tituloMeuHeroi').innerHTML = `Meu Herói - <em><strong style="color: #fed22b;">${xpAtual}Xp/${xpProximoNivel}Xp</strong></em>`;
         document.getElementById('containerExperiencia').innerHTML = `
             <span id="nivelAtual"><p>${nivelAtual}</p></span>
@@ -35,7 +37,7 @@ window.onload = function() {
             <span id="proximoNivel"><p>${parseInt(nivelAtual+1)}</p></span>
         `;
         document.getElementById('heroi').innerHTML = `
-            <img id="imagemMeuHeroi" src="herois/${heroi}/${heroi}-${nivelAtual}.png" alt="Herói">
+            <img id="imagemMeuHeroi" src="herois/${heroi}/${heroi}-${nivelMeuHeroi}.png" alt="Herói">
         `;
     }
 

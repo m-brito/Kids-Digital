@@ -71,6 +71,90 @@
     cursor: pointer;
 }
 
+/* ===================Questionario==================== */
+#containerQuestionario{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.815);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#containerQuestionario #perguntas{
+    height: 50vh;
+    background-color: white;
+    width: 50%;
+    min-width: 350px;
+    max-width: 700px;
+    position: relative;
+    border: 1px solid #428eff;
+    border-radius: 10px;
+}
+#containerQuestionario #perguntas #conteudoQuestionario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(100% - 40px);
+}
+#containerQuestionario #perguntas #conteudoQuestionario #alternativas{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+#containerQuestionario #perguntas #conteudoQuestionario #alternativas .grupo{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+#containerQuestionario #perguntas #conteudoQuestionario #alternativas button{
+    height: 50px;
+    width: 48%;
+    margin: 10px 0;
+    border: 0;
+    background-color: #428EFF;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+#containerQuestionario #perguntas #conteudoQuestionario #alternativas button:hover{
+    transition: 0.5s;
+    background-color: #86b7ff;
+}
+#containerQuestionario #perguntas #cabecalhoCartao{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+#containerQuestionario #perguntas span{
+    border-radius: 10px 0 0 0;
+    font-size: 25px;
+    margin-left: 10px;
+}
+#containerQuestionario #perguntas button#sairQuestionario{
+    border-radius: 0 10px 0 0;
+    height: 40px;
+    border: 0;
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    cursor: pointer;
+    transition: 0.5s;
+    padding: 0 10px;
+}
+#containerQuestionario #perguntas button#sairQuestionario:hover{
+    transition: 0.5s;
+    background-color: #c70000;
+}
+#containerQuestionario #perguntas #pergunta{
+    padding: 30px;
+    font-size: 20px;
+}
+
 /* ===============Responsividade================ */
 @media(max-width: 700px) {
     #conteudoConteudo #containerMaterial #videoaula iframe{
