@@ -26,7 +26,9 @@ window.onload = function() {
     // ==============Popular Dados======================
     function populaDadosHeroi(xpAtual, xpProximoNivel, nivelAtual, heroi) {
         let nivelMeuHeroi = nivelAtual;
-        
+        if(nivelAtual>5) {
+            nivelMeuHeroi = 5;
+        }
         document.getElementById('tituloMeuHeroi').innerHTML = `Meu Herói - <em><strong style="color: #fed22b;">${xpAtual}Xp/${xpProximoNivel}Xp</strong></em>`;
         document.getElementById('containerExperiencia').innerHTML = `
             <span id="nivelAtual"><p>${nivelAtual}</p></span>
