@@ -33,10 +33,15 @@ window.onload = function() {
     }
 }
 
+// ======================Questionario - funcionalidade=================
+
+// ===============Variaveis necessarias===================
 var numeroPergunta = 1;
 var acertos = 0;
 var perguntas;
 var experiencia = 0;
+
+// ======================Iniciando questionario====================
 async function fazerQuestionario(id, totalXp){
     experiencia = totalXp;
     acertos = 0;
@@ -48,6 +53,7 @@ async function fazerQuestionario(id, totalXp){
     mostrarPergunta(perguntas);
 }
 
+// ============================Mostrar Pergunta - Modal==================
 function mostrarPergunta() {
     // <span><p>Acertos: ${acertos}</p></span>
     document.getElementById('perguntas').innerHTML = `
@@ -73,6 +79,7 @@ function mostrarPergunta() {
     `;
 }
 
+// ====================Correcao de resposta/Avancar para proxima pergunta=====================
 async function verificarResposta(resposta, idQuestionario) {
     carregamento();
     const respPerguntas = await buscarPerguntasQuestionario(idQuestionario);
@@ -92,11 +99,14 @@ async function verificarResposta(resposta, idQuestionario) {
     pararCarregamento();
 }
 
+// ==============================Opcao sair do questionario=================
 function fecharQuestionario() {
     document.getElementById('perguntas').innerHTML = '';
     document.getElementById('containerQuestionario').style.display = 'none';
 }
 
+
+// ==========================Finalizacao de questionario===============
 async function mostrarResultadoQuestionario(idQuestionario) {
     carregamento();
     var ipUsuario = await pegarIp();
