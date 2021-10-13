@@ -2,8 +2,13 @@ var trocarImagem;
 var imagens = ["/herois/mulher-maravilha/mulher-maravilha-1.png", "/herois/naruto/naruto-1.png", "/herois/mulher-maravilha/mulher-maravilha-2.png", "/herois/naruto/naruto-2.png", "/herois/mulher-maravilha/mulher-maravilha-3.png", "/herois/naruto/naruto-3.png", "/herois/mulher-maravilha/mulher-maravilha-4.png", "/herois/naruto/naruto-4.png"];
 const aplausos = new Audio("/efeitos sonoros/aplausos.mpeg");
 const falha = new Audio("/efeitos sonoros/falha.mpeg");
+const evoluindo = new Audio("/efeitos sonoros/evoluindo.mpeg");
+const musicaQuestionario = new Audio("/efeitos sonoros/musicaQuestionario.mpeg");
 aplausos.volume = 0.2;
 falha.volume = 0.2;
+evoluindo.volume = 0.4;
+musicaQuestionario.volume = 0.2;
+musicaQuestionario.loop = "loop";
 
 var host = '';
 
@@ -137,6 +142,13 @@ async function ganhaExperiencia(ip, nome, qtdeExperiencia) {
     let nivel = usuario[0].nivel;
     let proxNivel = calculaXpProximoNivel(nivel);
     while(novaExperiencia >= proxNivel) {
+        falha.volume = 0.1;
+        aplausos.volume = 0.1;
+        evoluindo.play();
+        setTimeout(() => {
+            falha.volume = 0.2;
+            aplausos.volume = 0.2;
+        }, 1000);
         nivel++;
         proxNivel = calculaXpProximoNivel(nivel);
     }
@@ -262,6 +274,7 @@ var experiencia = 0;
 
 // ======================Iniciando questionario====================
 async function fazerQuestionario(id, totalXp){
+    musicaQuestionario.play();
     experiencia = totalXp;
     acertos = 0;
     numeroPergunta = 1
@@ -313,6 +326,8 @@ async function verificarResposta(resposta, idQuestionario) {
         numeroPergunta++;
         mostrarPergunta();
     } else {
+        musicaQuestionario.pause();
+        musicaQuestionario.currentTime = 0;
         fecharQuestionario();
         mostrarResultadoQuestionario(idQuestionario);
     }
@@ -321,6 +336,8 @@ async function verificarResposta(resposta, idQuestionario) {
 
 // ==============================Opcao sair do questionario=================
 function fecharQuestionario() {
+    musicaQuestionario.pause();
+    musicaQuestionario.currentTime = 0;
     document.getElementById('perguntas').innerHTML = '';
     document.getElementById('containerQuestionario').style.display = 'none';
 }
@@ -338,7 +355,6 @@ async function mostrarResultadoQuestionario(idQuestionario) {
 async function mensagemXp() {
     var ipUsuario = await pegarIp();
     var apelido = pegarCookies('apelido');
-    console.log(aplausos)
     if(acertos>=3) {
         aplausos.play();
         document.getElementById('mensagemQuestionarioXp').style.display = 'flex';

@@ -171,6 +171,19 @@
     font-weight: bold;
     text-align: center;
 }
+#mensagemQuestionarioXp p{
+    animation: animacaoP 1s infinite alternate;
+}
+
+@keyframes animacaoP {
+    from {
+      font-size: 30px;
+    }
+  
+    to {
+      font-size: 45px;
+    }
+  }
 
 /* ===============Responsividade================ */
 @media(max-width: 700px) {
