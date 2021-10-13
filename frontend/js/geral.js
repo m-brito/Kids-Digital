@@ -378,4 +378,3 @@ async function mensagemXp() {
         }, 3000);
     }
 }
-
