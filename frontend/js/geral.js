@@ -247,3 +247,111 @@ function parametroUrl(parametro) {
     }
 }
 
+// ======================Questionario - funcionalidade=================
+
+// ===============Variaveis necessarias===================
+var numeroPergunta = 1;
+var acertos = 0;
+var perguntas;
+var experiencia = 0;
+
+// ======================Iniciando questionario====================
+async function fazerQuestionario(id, totalXp){
+    experiencia = totalXp;
+    acertos = 0;
+    numeroPergunta = 1
+    carregamento();
+    perguntas = await buscarPerguntasQuestionario(id);
+    pararCarregamento();
+    document.getElementById('containerQuestionario').style.display = 'flex';
+    mostrarPergunta(perguntas);
+}
+
+// ============================Mostrar Pergunta - Modal==================
+function mostrarPergunta() {
+    // <span><p>Acertos: ${acertos}</p></span>
+    document.getElementById('perguntas').innerHTML = `
+        <div id="cabecalhoCartao">
+            <span><p>${numeroPergunta}/5</p></span>
+            <button onclick="fecharQuestionario()" id="sairQuestionario">Sair</button>
+        </div>
+        <div id="conteudoQuestionario">
+            <div id="pergunta">
+                <p>${perguntas[numeroPergunta-1].pergunta}</p>
+            </div>
+            <div id="alternativas">
+                <div class="grupo">
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].a}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].b}</button>
+                </div>
+                <div class="grupo">
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].c}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].d}</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ====================Correcao de resposta/Avancar para proxima pergunta=====================
+async function verificarResposta(resposta, idQuestionario) {
+    carregamento();
+    const respPerguntas = await buscarPerguntasQuestionario(idQuestionario);
+    for(let x = 0; x < respPerguntas.length; x++) {
+        if(respPerguntas[x].id == resposta.id) {
+            if(respPerguntas[x].correta == resposta.innerHTML) {
+                acertos++;
+            }
+        }
+    }
+    if(numeroPergunta<5) {
+        numeroPergunta++;
+        mostrarPergunta();
+    } else {
+        mostrarResultadoQuestionario(idQuestionario);
+    }
+    pararCarregamento();
+}
+
+// ==============================Opcao sair do questionario=================
+function fecharQuestionario() {
+    document.getElementById('perguntas').innerHTML = '';
+    document.getElementById('containerQuestionario').style.display = 'none';
+}
+
+
+// ==========================Finalizacao de questionario===============
+async function mostrarResultadoQuestionario(idQuestionario) {
+    carregamento();
+    await cadastrarResultado(idQuestionario, acertos);
+    await mensagemXp();
+    pararCarregamento();
+    fecharQuestionario();
+}
+
+// ======================Mensagem apos execucao questionario=====================
+async function mensagemXp() {
+    var ipUsuario = await pegarIp();
+    var apelido = pegarCookies('apelido');
+    if(acertos>=3) {
+        document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
+        document.getElementById('mensagemQuestionarioXp').innerHTML = `
+            <p>Voce acertou ${acertos}/5 e passou!</p>
+            <p>+${experiencia}Xp</p>
+        `;
+        setTimeout(() => {
+            document.getElementById('mensagemQuestionarioXp').style.display = 'none';
+        }, 3000);
+        await ganhaExperiencia(ipUsuario, apelido, experiencia);
+    } else {
+        document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
+        document.getElementById('mensagemQuestionarioXp').style.backgroundColor = '#ff4f4f';
+        document.getElementById('mensagemQuestionarioXp').innerHTML = `
+            <p>Voce acertou ${acertos}/5 e reprovou!</p>
+        `;
+        setTimeout(() => {
+            document.getElementById('mensagemQuestionarioXp').style.display = 'none';
+        }, 3000);
+    }
+}
+
