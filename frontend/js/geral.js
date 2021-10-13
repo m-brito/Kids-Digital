@@ -1,5 +1,9 @@
 var trocarImagem;
 var imagens = ["/herois/mulher-maravilha/mulher-maravilha-1.png", "/herois/naruto/naruto-1.png", "/herois/mulher-maravilha/mulher-maravilha-2.png", "/herois/naruto/naruto-2.png", "/herois/mulher-maravilha/mulher-maravilha-3.png", "/herois/naruto/naruto-3.png", "/herois/mulher-maravilha/mulher-maravilha-4.png", "/herois/naruto/naruto-4.png"];
+const aplausos = new Audio("/efeitos sonoros/aplausos.mpeg");
+const falha = new Audio("/efeitos sonoros/falha.mpeg");
+aplausos.volume = 0.2;
+falha.volume = 0.2;
 
 var host = '';
 
@@ -131,7 +135,7 @@ async function ganhaExperiencia(ip, nome, qtdeExperiencia) {
     const usuario = await procurarUsuario(ip, nome);
     const novaExperiencia = usuario[0].experiencia + qtdeExperiencia;
     let nivel = usuario[0].nivel;
-    const proxNivel = calculaXpProximoNivel(nivel);
+    let proxNivel = calculaXpProximoNivel(nivel);
     while(novaExperiencia >= proxNivel) {
         nivel++;
         proxNivel = calculaXpProximoNivel(nivel);
@@ -309,6 +313,7 @@ async function verificarResposta(resposta, idQuestionario) {
         numeroPergunta++;
         mostrarPergunta();
     } else {
+        fecharQuestionario();
         mostrarResultadoQuestionario(idQuestionario);
     }
     pararCarregamento();
@@ -327,14 +332,15 @@ async function mostrarResultadoQuestionario(idQuestionario) {
     await cadastrarResultado(idQuestionario, acertos);
     await mensagemXp();
     pararCarregamento();
-    fecharQuestionario();
 }
 
 // ======================Mensagem apos execucao questionario=====================
 async function mensagemXp() {
     var ipUsuario = await pegarIp();
     var apelido = pegarCookies('apelido');
+    console.log(aplausos)
     if(acertos>=3) {
+        aplausos.play();
         document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
         document.getElementById('mensagemQuestionarioXp').innerHTML = `
             <p>Voce acertou ${acertos}/5 e passou!</p>
@@ -345,6 +351,7 @@ async function mensagemXp() {
         }, 3000);
         await ganhaExperiencia(ipUsuario, apelido, experiencia);
     } else {
+        falha.play();
         document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
         document.getElementById('mensagemQuestionarioXp').style.backgroundColor = '#ff4f4f';
         document.getElementById('mensagemQuestionarioXp').innerHTML = `
