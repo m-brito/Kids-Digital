@@ -81,6 +81,12 @@
     align-items: center;
     justify-content: center;
 }
+#containerQuestionario img#orquestra{
+    position: fixed;
+    top: 5px;
+    margin: auto;
+    height: 150px;
+}
 #containerQuestionario #perguntas{
     height: 50vh;
     background-color: white;
@@ -183,7 +189,7 @@
     to {
       font-size: 45px;
     }
-  }
+}
 
 /* ===============Responsividade================ */
 @media(max-width: 700px) {
