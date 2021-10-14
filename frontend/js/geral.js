@@ -358,6 +358,7 @@ async function mensagemXp() {
     if(acertos>=3) {
         aplausos.play();
         document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
+        document.getElementById('mensagemQuestionarioXp').style.backgroundColor = '#428eff';
         document.getElementById('mensagemQuestionarioXp').innerHTML = `
             <p>Voce acertou ${acertos}/5 e passou!</p>
             <p>+${experiencia}Xp</p>
