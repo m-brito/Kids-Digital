@@ -287,6 +287,7 @@ async function fazerQuestionario(id, totalXp){
 
 // ============================Mostrar Pergunta - Modal==================
 function mostrarPergunta() {
+    carregamento();
     // <span><p>Acertos: ${acertos}</p></span>
     document.getElementById('perguntas').innerHTML = `
         <div id="cabecalhoCartao">
@@ -309,6 +310,7 @@ function mostrarPergunta() {
             </div>
         </div>
     `;
+    pararCarregamento();
 }
 
 // ====================Correcao de resposta/Avancar para proxima pergunta=====================
