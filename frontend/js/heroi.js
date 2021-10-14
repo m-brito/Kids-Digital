@@ -29,15 +29,19 @@ window.onload = function() {
         if(nivelAtual>4) {
             nivelMeuHeroi = 4;
         }
-        const xpNivelAnterior = calculaXpProximoNivel(nivelAtual-1);
+        let xpNivelAnterior = calculaXpProximoNivel(nivelAtual-1);
         xpPercorrido = xpAtual - xpNivelAnterior;
         xpPercorrer = xpProximoNivel - xpNivelAnterior;
+        let calculoProgresso = (parseFloat((xpPercorrido*100)/xpPercorrer))
+        if(calculoProgresso < 0) {
+            calculoProgresso = 0;
+        }
         document.getElementById('tituloMeuHeroi').innerHTML = `Meu Herói - <em><strong style="color: #fed22b;">${xpAtual}Xp/${xpProximoNivel}Xp</strong></em>`;
         document.getElementById('containerExperiencia').innerHTML = `
             <span id="nivelAtual"><p>${nivelAtual}</p></span>
             <div id="barraExperiencia">
-                <div id="minhaExperiencia" style="width: ${parseFloat((xpPercorrido*100)/xpPercorrer)}% !important;"></div>
-                <span id="totalExperiencia" style="left: calc(${parseFloat((xpPercorrido*100)/xpPercorrer)}% - 100px);"><p>${xpAtual}Xp</p></span>
+                <div id="minhaExperiencia" style="width: ${calculoProgresso}% !important;"></div>
+                <span id="totalExperiencia" style="left: calc(${calculoProgresso}% - 100px);"><p>${xpAtual}Xp</p></span>
             </div>
             <span id="proximoNivel"><p>${parseInt(nivelAtual+1)}</p></span>
         `;
