@@ -40,6 +40,7 @@ function pararCarregamento() {
 
 // ===============Mostrar Mensagem==================
 async function mostrarMensagem(mensagem) {
+    pararCarregamento();
     document.getElementById('mensagemTela').style.display = 'flex';
     document.getElementById('mensagemTela').innerHTML = `
         <p>${mensagem}</p>
@@ -92,6 +93,20 @@ async function buscarConteudoId(id) {
     })
     const data = await resp.json();
     return(data);
+}
+
+// ======================Buscar Conteudos=====================
+
+async function pegarConteudos() {
+    try {
+        const resp = await fetch(`${host}/conteudo/get-all`, {
+            "method": "GET"
+        })
+        const data = await resp.json();
+        return(data);
+    } catch (error) {
+        return {"Erro": "Tivemos problemas ao se conectar com o servidor!"}
+    }
 }
 
 // =================Buscar Questionario======================
@@ -265,6 +280,16 @@ function parametroUrl(parametro) {
     }
 }
 
+// ===================Data - dd/mm/yyyy========================
+function pegarData() {
+    const data = new Date();
+    const dia = String(data.getDate()).padStart(2, '0');
+    const diaVencimento = parseInt(dia) + 2;
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return(`${dia}/${mes}/${ano}`);
+}
+
 // ======================Questionario - funcionalidade=================
 
 // ===============Variaveis necessarias===================
@@ -274,7 +299,8 @@ var perguntas;
 var experiencia = 0;
 
 // ======================Iniciando questionario====================
-async function fazerQuestionario(id, totalXp){
+async function fazerQuestionario(id, totalXp, funcaoFechar){
+    pararCarregamento();
     musicaQuestionario.play();
     experiencia = totalXp;
     acertos = 0;
@@ -283,17 +309,17 @@ async function fazerQuestionario(id, totalXp){
     perguntas = await buscarPerguntasQuestionario(id);
     pararCarregamento();
     document.getElementById('containerQuestionario').style.display = 'flex';
-    mostrarPergunta(perguntas);
+    mostrarPergunta(funcaoFechar);
 }
 
 // ============================Mostrar Pergunta - Modal==================
-function mostrarPergunta() {
+function mostrarPergunta(funcaoFechar) {
     carregamento();
     // <span><p>Acertos: ${acertos}</p></span>
     document.getElementById('perguntas').innerHTML = `
         <div id="cabecalhoCartao">
             <span><p>${numeroPergunta}/5</p></span>
-            <button onclick="fecharQuestionario()" id="sairQuestionario">Sair</button>
+            <button onclick="${funcaoFechar}()" id="sairQuestionario">Sair</button>
         </div>
         <div id="conteudoQuestionario">
             <div id="pergunta">
@@ -345,6 +371,16 @@ function fecharQuestionario() {
     document.getElementById('containerQuestionario').style.display = 'none';
 }
 
+// ==============================Opcao sair do questionario diario=================
+function fecharQuestionarioDiario() {
+    musicaQuestionario.pause();
+    musicaQuestionario.currentTime = 0;
+    document.cookie = `diario=`;
+    setImgQuestionarioDiario();
+    document.getElementById('perguntas').innerHTML = '';
+    document.getElementById('containerQuestionario').style.display = 'none';
+}
+
 
 // ==========================Finalizacao de questionario===============
 async function mostrarResultadoQuestionario(idQuestionario) {
@@ -380,5 +416,58 @@ async function mensagemXp() {
         setTimeout(() => {
             document.getElementById('mensagemQuestionarioXp').style.display = 'none';
         }, 3000);
+    }
+}
+
+// =========================Calcular Xp - Questionario Diario=======================
+async function calcularXpQuestDiario() {
+    const apelido = pegarCookies('apelido');
+    const ipUsuario = pegarCookies('ipUsuario');
+    const nivelUsuario = await (await procurarUsuario(ipUsuario, apelido))[0].nivel;
+    const xpLimite = calculaXpProximoNivel(nivelUsuario);
+    mostrarMensagem(`Voce pode ganhar de 10xp à ${xpLimite}Xp`);
+    const sorte = sorteador(100);
+    if(sorte >= 90) {
+        return xpLimite;
+    } else if(sorte >=65){
+        return Math.floor(xpLimite/3);
+    } else {
+        return 10;
+    }
+}
+
+// ========================Verificar se ja fez questionario diario==================
+function verificarQuestionarioDiario() {
+    data = pegarData();
+    const feito = pegarCookies('diario');
+    if(feito == '' || feito == 'undefined' || feito != '' && feito != 'undefined' && feito != data) {
+        return true;
+    } else {
+        return false;
+    }
+}
+// ========================Questionario Diario==========================
+async function questionarioDiario() {
+    carregamento();
+    if(verificarQuestionarioDiario() == true) {
+        document.cookie = `diario=${data}`;
+        const qtde = await pegarConteudos();
+        const questSorteado = sorteador(qtde.length);
+        const xp = await calcularXpQuestDiario();
+        setTimeout(() => {
+            fazerQuestionario(questSorteado, xp, 'fecharQuestionarioDiario');
+            setImgQuestionarioDiario();
+        }, 3000);
+    } else {
+        mostrarMensagem('Voce ja fez o questionario diario');
+    }
+}
+
+// ====================Setar imagem de questionario diario=====================
+function setImgQuestionarioDiario() {
+    if(verificarQuestionarioDiario() == true) {
+        document.getElementById('imgQuestionarioDiario').src = '/imgs/questDiario.png';
+    } else {
+        document.getElementById('imgQuestionarioDiario').src = '/imgs/questDiarioFeito.png';
     }
 }

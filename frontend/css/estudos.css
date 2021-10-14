@@ -45,6 +45,10 @@
     background-color: #dd2020;
 }
 
+#imagensCabecalho{
+    flex-wrap: initial;
+}
+
 /* ==========================Conteudo======================== */
 
 #estudosPrincipal #estudosConteudo{
@@ -94,6 +98,21 @@
 #estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button:hover{
     transition: 0.5s;
     background-color: #a9cbff;
+}
+
+/* =======================Questionario diario==================== */
+#questionarioDiario{
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+#questionarioDiario img{
+    height: 100px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
 }
 
 /* =======================Responsividade - Estudos==================== */

@@ -1,6 +1,7 @@
 window.onload = function() {
     verificarLogin();
     populaConteudos();
+    setImgQuestionarioDiario();
 
     // ===================Botoes Cabecalho======================
 
@@ -18,20 +19,6 @@ window.onload = function() {
     document.getElementById('verRanking').addEventListener('click', () => {
         window.location.href = '/ranking.html';
     })
-
-    // ======================Buscar Conteudos=====================
-
-    async function pegarConteudos() {
-        try {
-            const resp = await fetch(`${host}/conteudo/get-all`, {
-                "method": "GET"
-            })
-            const data = await resp.json();
-            return(data);
-        } catch (error) {
-            return {"Erro": "Tivemos problemas ao se conectar com o servidor!"}
-        }
-    }
 
     // ====================Popular Conteudos=========================
     async function populaConteudos() {

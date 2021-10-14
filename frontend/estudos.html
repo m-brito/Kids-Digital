@@ -10,13 +10,24 @@
     
     <script src="js/estudos.js"></script>
     <link rel="stylesheet" href="css/estudos.css">
+    <link rel="stylesheet" href="css/conteudo.css">
 </head>
 <body>
+    <div id="containerQuestionario">
+        <img id="orquestra" src="imgs/orquestra.gif" alt="Orquestra">
+        <div id="perguntas">
+        </div>
+    </div>
+    <div id="mensagemQuestionarioXp">
+    </div>
     <div id="carregamento"></div>
     <div id="mensagemTela"></div>
     <div id="estudosPrincipal">
         <div id="estudosCabecalho">
-            <img id="verRanking" src="imgs/trofeu-ranking.png" alt="Ranking">
+            <div id="imagensCabecalho">
+                <img id="verRanking" src="imgs/trofeu-ranking.png" alt="Ranking">
+                <button style="display: default" onclick="questionarioDiario()" id="questionarioDiario"><img id="imgQuestionarioDiario" src="imgs/questDiario.png" alt="Questionario Diario"></button>
+            </div>
             <div id="estudosBotoes">
                 <button id="btnMeuHeroi">Meu Herói</button>
                 <button id="btnSair">Sair</button>

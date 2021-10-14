@@ -21,7 +21,7 @@ window.onload = function() {
             <iframe src="https://www.youtube.com/embed/${respConteudo[0].url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             `;
             document.getElementById('containerMaterial').innerHTML += `
-            <button id="${respQuestionario[0].id}" onclick="fazerQuestionario(this.id, ${respQuestionario[0].experiencia})">Questionario + ${respQuestionario[0].experiencia}xp</button>
+            <button id="${respQuestionario[0].id}" onclick="fazerQuestionario(this.id, ${respQuestionario[0].experiencia}, 'fecharQuestionario')">Questionario + ${respQuestionario[0].experiencia}xp</button>
             `;
         } else {
             mostrarMensagem('Conteudo não encontrado!')
