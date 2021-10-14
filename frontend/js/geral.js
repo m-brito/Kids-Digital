@@ -439,7 +439,7 @@ async function calcularXpQuestDiario() {
 // ========================Verificar se ja fez questionario diario==================
 function verificarQuestionarioDiario() {
     data = pegarData();
-    const feito = pegarCookies('diario');
+    let feito = pegarCookies('diario');
     if(feito == '' || feito == 'undefined' || feito != '' && feito != 'undefined' && feito != data) {
         return true;
     } else {
