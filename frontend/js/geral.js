@@ -20,6 +20,7 @@ function sorteador(max) {
 
 // ============Funcoes carregamento================
 function carregamento() {
+    pararCarregamento();
     document.getElementById('carregamento').style.display = 'flex';
     document.getElementById('carregamento').innerHTML = `
     <div id='divImgCarregamento'>
