@@ -24,12 +24,23 @@ window.onload = function() {
     async function populaConteudos() {
         document.getElementById('materiais').innerHTML += '';
         carregamento();
+        const usuario = await procurarUsuario(pegarCookies('ipUsuario'), pegarCookies('apelido'));
+        let bloqueiaConteudo = Math.round(usuario[0].nivel/5);
+        if(bloqueiaConteudo <=0) {
+            bloqueiaConteudo = 2;
+        }
         const conteudos = await pegarConteudos();
         pararCarregamento();
         for(let x = 0; x < conteudos.length; x++) {
-            document.getElementById('materiais').innerHTML += `
-                <button id="${conteudos[x].id}" onclick="irConteudo(this.id)" class="conteudoBotao">${conteudos[x].nome}</button>
-            `;
+            if(x+1>=bloqueiaConteudo) {
+                document.getElementById('materiais').innerHTML += `
+                    <button id="${conteudos[x].nome}" onclick="conteudoBloqueado(this.id)" class="conteudoBotaoBloqueado"><img src='/imgs/cadeado-1.png' alt='Conteudo Bloqueado'></button>
+                `;
+            } else {
+                document.getElementById('materiais').innerHTML += `
+                    <button id="${conteudos[x].id}" onclick="irConteudo(this.id)" class="conteudoBotao">${conteudos[x].nome}</button>
+                `;
+            }
         }
     }
 }
@@ -37,4 +48,9 @@ window.onload = function() {
 // ==================Ir para Conteudo=================
 function irConteudo(idConteudo) {
     window.location.href = `/conteudo.html?c=${idConteudo}`;
+}
+
+function conteudoBloqueado(conteudo) {
+    mostrarMensagem(`O conteudo "${conteudo}" será desbloqueado nos proximo niveis!`);
+
 }

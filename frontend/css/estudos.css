@@ -84,7 +84,7 @@
     display: flex;
     flex-direction: column;
 }
-#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button{
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button.conteudoBotao{
     transition: 0.5s;
     height: 50px;
     border: 0;
@@ -95,9 +95,31 @@
     cursor: pointer;
     margin: 10px 0;
 }
-#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button:hover{
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button.conteudoBotao:hover{
     transition: 0.5s;
     background-color: #a9cbff;
+}
+
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button.conteudoBotaoBloqueado{
+    transition: 0.5s;
+    height: 50px;
+    border: 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    background-color: #d7edffc9;
+    cursor: pointer;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button.conteudoBotaoBloqueado img{
+    height: 100%;
+}
+#estudosPrincipal #estudosConteudo #estudoConteudoMateriais #materiais button.conteudoBotaoBloqueado:hover{
+    transition: 0.5s;
+    background-color: #d9eeff;
 }
 
 /* =======================Questionario diario==================== */
