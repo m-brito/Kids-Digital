@@ -320,6 +320,7 @@ async function efeitoDiario() {
             cadastrarEfeitoUsuario(efeitos[efeitoSorteado].id, usuario, ipUsuario);
             mostrarMensagem(`Voce ganhou o efeito "${efeitos[efeitoSorteado].nome}", use em alguem no ranking!`)
         } else {
+            document.cookie = `bolsadiaria=${data}`;
             const xpGanhou = sorteador(100);
             ganhaExperiencia(ipUsuario, usuario, xpGanhou);
             mostrarMensagem(`Voce ganhou ${xpGanhou}Xp. <br> Volte amanha para tentar coletar um efeito especial!`)
