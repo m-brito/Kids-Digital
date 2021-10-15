@@ -453,10 +453,10 @@ async function questionarioDiario() {
     if(verificarQuestionarioDiario() == true) {
         document.cookie = `diario=${data}`;
         const qtde = await pegarConteudos();
-        const questSorteado = sorteador(qtde.length);
+        const questSorteado = sorteador(qtde.length-1);
         const xp = await calcularXpQuestDiario();
         setTimeout(() => {
-            fazerQuestionario(questSorteado, xp, 'fecharQuestionarioDiario');
+            fazerQuestionario(qtde[questSorteado].idQuestionario, xp, 'fecharQuestionarioDiario');
             setImgQuestionarioDiario();
         }, 3000);
     } else {
