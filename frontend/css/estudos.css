@@ -49,6 +49,11 @@
     flex-wrap: initial;
 }
 
+.btnSemEstilo{
+    border: 0;
+    background-color: transparent;
+}
+
 /* ==========================Conteudo======================== */
 
 #estudosPrincipal #estudosConteudo{
@@ -123,12 +128,12 @@
 }
 
 /* =======================Questionario diario==================== */
-#questionarioDiario{
+#questionarioDiario, #efeitoDiario{
     background-color: transparent;
     border: 0;
     cursor: pointer;
 }
-#questionarioDiario img{
+#questionarioDiario img, #efeitoDiario img{
     height: 100px;
     top: 0;
     display: flex;
@@ -154,5 +159,12 @@
 
     #estudosPrincipal #estudosCabecalho{
         flex-direction: column;
+        height: auto;
+    }
+    #estudosPrincipal #estudosCabecalho button img{
+        height: 60px !important;
+    }
+    #estudosPrincipal #estudosCabecalho #imagensCabecalho{
+        margin: 15px 0;
     }
 }

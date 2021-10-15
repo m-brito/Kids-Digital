@@ -291,6 +291,84 @@ function pegarData() {
     return(`${dia}/${mes}/${ano}`);
 }
 
+// =======================Efeitos==============================
+async function buscarEfeitos() {
+    const resp = await fetch(`${host}/efeito/getAll`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
+// ==========================Efeito diario===========================
+async function efeitoDiario() {
+    if(verificarBolsaDiaria() == true) {
+        const usuario = pegarCookies('apelido');
+        const ipUsuario = pegarCookies('ipUsuario');
+        const efeitos = await buscarEfeitos();
+        const chance = sorteador(100);
+        const dataEfeito = pegarData();
+        if(chance > 70) {
+            let efeitoSorteado;
+            if(efeitos.length <= 1) {
+                efeitoSorteado = 0;
+            } else {
+                efeitoSorteado = sorteador(efeitos.length);
+
+            }
+            document.cookie = `bolsadiaria=${data}`;
+            cadastrarEfeitoUsuario(efeitos[efeitoSorteado].id, usuario, ipUsuario);
+            mostrarMensagem(`Voce ganhou o efeito "${efeitos[efeitoSorteado].nome}", use em alguem no ranking!`)
+        } else {
+            const xpGanhou = sorteador(100);
+            ganhaExperiencia(ipUsuario, usuario, xpGanhou);
+            mostrarMensagem(`Voce ganhou ${xpGanhou}Xp. <br> Volte amanha para tentar coletar um efeito especial!`)
+            setImgEfeitoDiario();
+        }
+    } else {
+        mostrarMensagem("Voce ja coletou a bolsa diaria! <br> Volte amanha.")
+    }
+}
+
+// ====================Cadastrar Efeito para usuario================
+async function cadastrarEfeitoUsuario(idEfeito, usuario, ipUsuario) {
+    pararCarregamento();
+    carregamento();
+    const idUsuario = await(await(procurarUsuario(ipUsuario, usuario)))[0].id;
+    await fetch(`${host}/usuarioefeitos/add`, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "idUsuario": idUsuario,
+            "idEfeito": idEfeito
+        })
+    });
+    pararCarregamento();
+}
+
+// ========================Verificar se ja coletou bolsa diaria==================
+function verificarBolsaDiaria() {
+    data = pegarData();
+    let feito = pegarCookies('bolsadiaria');
+    if(feito == '' || feito == 'undefined' || feito != '' && feito != 'undefined' && feito != data) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// ====================Setar imagem de questionario diario=====================
+function setImgEfeitoDiario() {
+    if(verificarBolsaDiaria() == true) {
+        document.getElementById('imgEfeitoDiario').src = '/imgs/bolsaDiaria.png';
+    } else {
+        document.getElementById('imgEfeitoDiario').src = '/imgs/bolsaDiariaColetada.png';
+    }
+}
+
 // ======================Questionario - funcionalidade=================
 
 // ===============Variaveis necessarias===================

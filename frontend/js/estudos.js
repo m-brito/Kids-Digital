@@ -2,6 +2,7 @@ window.onload = function() {
     verificarLogin();
     populaConteudos();
     setImgQuestionarioDiario();
+    setImgEfeitoDiario();
 
     // ===================Botoes Cabecalho======================
 
