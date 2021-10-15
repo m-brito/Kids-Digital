@@ -181,6 +181,7 @@ async function ganhaExperiencia(ip, nome, qtdeExperiencia) {
     });
 }
 
+
 // =================Cadastrar Resultado=======================
 async function cadastrarResultado(idQuestionario, acertos) {
     carregamento();
@@ -424,7 +425,7 @@ async function calcularXpQuestDiario() {
     const apelido = pegarCookies('apelido');
     const ipUsuario = pegarCookies('ipUsuario');
     const nivelUsuario = await (await procurarUsuario(ipUsuario, apelido))[0].nivel;
-    const xpLimite = calculaXpProximoNivel(nivelUsuario);
+    let xpLimite = calculaXpProximoNivel(nivelUsuario);
     mostrarMensagem(`Voce pode ganhar de 10xp à ${xpLimite}Xp`);
     const sorte = sorteador(100);
     if(sorte >= 90) {

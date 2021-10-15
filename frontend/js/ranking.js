@@ -20,7 +20,7 @@ window.onload = function() {
             const ranking = await buscarRanking();
             document.getElementById('posicoesRanking').innerHTML = '';
             for(let x = 0; x < ranking.length; x++) {
-                if(x < 15) {
+                if(x < 40) {
                     document.getElementById('posicoesRanking').innerHTML += `
                         <div class="usuarioPlacar">
                             <div class="numeroPosicao"><p>#${x+1}</p></div>
