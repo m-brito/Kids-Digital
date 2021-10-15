@@ -318,13 +318,14 @@ async function efeitoDiario() {
             }
             document.cookie = `bolsadiaria=${data}`;
             cadastrarEfeitoUsuario(efeitos[efeitoSorteado].id, usuario, ipUsuario);
+            setImgEfeitoDiario();
             mostrarMensagem(`Voce ganhou o efeito "${efeitos[efeitoSorteado].nome}", use em alguem no ranking!`)
         } else {
             document.cookie = `bolsadiaria=${data}`;
             const xpGanhou = sorteador(100);
             ganhaExperiencia(ipUsuario, usuario, xpGanhou);
-            mostrarMensagem(`Voce ganhou ${xpGanhou}Xp. <br> Volte amanha para tentar coletar um efeito especial!`)
             setImgEfeitoDiario();
+            mostrarMensagem(`Voce ganhou ${xpGanhou}Xp. <br> Volte amanha para tentar coletar um efeito especial!`)
         }
     } else {
         mostrarMensagem("Voce ja coletou a bolsa diaria! <br> Volte amanha.")
