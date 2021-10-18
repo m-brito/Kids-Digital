@@ -15,6 +15,7 @@ window.onload = function() {
     async function popularRanking() {
         const ipUsuario = pegarCookies('ipUsuario');
         const apelido = pegarCookies('apelido');
+        const idUsuarioLogado = await buscarIdUsuario();
         carregamento();
         const respUsuario = await procurarUsuario(ipUsuario, apelido);
         document.getElementById('h1RankingTitulo').innerHTML = `
@@ -25,12 +26,21 @@ window.onload = function() {
             document.getElementById('posicoesRanking').innerHTML = '';
             for(let x = 0; x < ranking.length; x++) {
                 if(x < 40) {
-                    document.getElementById('posicoesRanking').innerHTML += `
-                        <div id="${ranking[x].id}" onclick="listarEfeitos(this.id)" class="usuarioPlacar">
-                            <div class="numeroPosicao"><p>#${x+1}</p></div>
-                            <div class="nomeUsuario"><p>${ranking[x].nome} - ${ranking[x].experiencia}Xp</p></div>
-                        </div>
-                    `;
+                    if(idUsuarioLogado == ranking[x].id) {
+                        document.getElementById('posicoesRanking').innerHTML += `
+                            <div style="color: #fed22b;" id="${ranking[x].id}" onclick="listarEfeitos(this.id)" class="usuarioPlacar">
+                                <div class="numeroPosicao"><p style="color: #fed22b;"><strong>#${x+1}</strong></p></div>
+                                <div class="nomeUsuario"><p style="color: #fed22b;"><strong>${ranking[x].nome} - ${ranking[x].experiencia}Xp</strong></p></div>
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('posicoesRanking').innerHTML += `
+                            <div id="${ranking[x].id}" onclick="listarEfeitos(this.id)" class="usuarioPlacar">
+                                <div class="numeroPosicao"><p>#${x+1}</p></div>
+                                <div class="nomeUsuario"><p>${ranking[x].nome} - ${ranking[x].experiencia}Xp</p></div>
+                            </div>
+                        `;
+                    }
                 } else {
                     break;
                 }
