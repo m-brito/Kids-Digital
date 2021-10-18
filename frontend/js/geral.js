@@ -383,8 +383,16 @@ async function mensagemAtingido() {
     if(efeitosAtingidos.length>0) {
         let usuarioAtingiu = await procurarUsuarioId(efeitosAtingidos[0].idUsuario);
         let efeito = await buscarEfeitosId(efeitosAtingidos[0].idEspecial);
-        mostrarMensagem(`O usuario "${usuarioAtingiu[0].nome}" te atingiu com o efeito "${efeito[0].nome}"!`);
+        let msgAtingido = pegarCookies("msgatingido");
+        if(msgAtingido != pegarData()) {
+            mostrarMensagem(`O usuario "${usuarioAtingiu[0].nome}" te atingiu com o efeito "${efeito[0].nome}"!<br><button id="btnMsgAtingido" onclick="naoMostrarMsgAtingido()"><p>Não mostrar mais hoje</p></button>`);
+        }
     }
+}
+
+function naoMostrarMsgAtingido() {
+    document.getElementById('btnMsgAtingido').style.display = 'none';
+    document.cookie = `msgatingido=${pegarData()}`;
 }
 
 // ==========================Efeito diario===========================

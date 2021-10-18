@@ -46,6 +46,13 @@ html{
   font-size: 25px;
   text-align: center;
 }
+#mensagemTela button{
+  border: 0;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 15px;
+}
 
 /* ==================Animacoes================= */
 
