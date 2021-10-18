@@ -59,6 +59,11 @@
     border-radius: 5px;
     display: flex;
     align-items: center;
+    transition: 0.5s;
+}
+#rankingConteudo #posicoesRanking .usuarioPlacar:hover{
+    transition: 0.5s;
+    background-color: #c5dcff;
 }
 #rankingConteudo #posicoesRanking .usuarioPlacar .numeroPosicao{
     min-height: 50px;
