@@ -72,6 +72,8 @@ async function listarEfeitos(idUsuario) {
     }
     if(efeitosUsuarioLogado.length == 0) {
         document.getElementById('containerEfeitos').innerHTML += `<p style='color: white'>Voce não tem efeitos!</p>`;
+    } else if(idUsuario == idUsuarioLogado && meusEfeitos[2].qtde == 0) {
+        document.getElementById('containerEfeitos').innerHTML += `<p style='color: white'>Voce não tem efeitos para ser usado em voce mesmo!</p>`;
     }
     for(let x=0; x<efeitosUsuarioLogado.length; x++) {
         if((meusEfeitos[efeitosUsuarioLogado[x].idEfeito].mostrou == false && idUsuario != idUsuarioLogado) || (meusEfeitos[efeitosUsuarioLogado[x].idEfeito].mostrou == false && idUsuario == idUsuarioLogado && efeitosUsuarioLogado[x].idEfeito == 2)) {
