@@ -3,6 +3,7 @@ window.onload = function() {
     populaConteudos();
     setImgQuestionarioDiario();
     setImgEfeitoDiario();
+    mensagemAtingido();
 
     // ===================Botoes Cabecalho======================
 

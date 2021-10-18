@@ -47,6 +47,7 @@ async function mostrarMensagem(mensagem) {
     `;
     setTimeout(() => {
         document.getElementById('mensagemTela').style.display = 'none';
+        return;
     }, 3000);
 }
 
@@ -71,6 +72,15 @@ async function procurarUsuario(ip, nome) {
 // ==============Procurar Usuario - NOME===================
 async function procurarUsuarioNome(nome) {
     const resp = await fetch(`${host}/usuario/get-nome?nome=${nome}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
+// ==============Procurar Usuario - ID===================
+async function procurarUsuarioId(id) {
+    const resp = await fetch(`${host}/usuario/get-id?id=${id}`, {
         "method": "GET"
     })
     const data = await resp.json();
@@ -147,6 +157,22 @@ async function cadastrarUsuario(ip, nome) {
         body: JSON.stringify({
             "ip": ip,
             "nome": nome
+        })
+    });
+}
+// ====================Cadastrar Atinge================
+async function cadastrarAtinge(dataAtual, idAtingido, idEfeito, idUsuarioAtacando) {
+    await fetch(`${host}/atinge/addAtinge`, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "data": dataAtual,
+            "idAtingido": idAtingido,
+            "idEspecial": idEfeito,
+            "idUsuario": idUsuarioAtacando
         })
     });
 }
@@ -291,6 +317,26 @@ function pegarData() {
     return(`${dia}/${mes}/${ano}`);
 }
 
+// =======================Delete Atinge==============================
+async function deleteEfeito(id) {
+    try {
+        await fetch(`${host}/atinge/delete?id=${id}`, {
+            "method": "DELETE"
+        })   
+    } catch (error) {
+        mostrarMensagem('Tivemos problemas de conexao com o servidor!')
+    }
+}
+// =======================Delete efeito de usuario==============================
+async function deleteEfeitoDeUsuario(id) {
+    try {
+        await fetch(`${host}/usuarioefeitos/delete?id=${id}`, {
+            "method": "DELETE"
+        })   
+    } catch (error) {
+        mostrarMensagem('Tivemos problemas de conexao com o servidor!')
+    }
+}
 // =======================Efeitos==============================
 async function buscarEfeitos() {
     const resp = await fetch(`${host}/efeito/getAll`, {
@@ -298,6 +344,47 @@ async function buscarEfeitos() {
     })
     const data = await resp.json();
     return(data);
+}
+// =======================Efeitos Usuario==============================
+async function buscarEfeitosUsuario(id) {
+    const resp = await fetch(`${host}/usuarioefeitos/get-idUsuario?idUsuario=${id}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+// =======================Efeitos - ID==============================
+async function buscarEfeitosId(id) {
+    const resp = await fetch(`${host}/efeito/get-id?id=${id}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+// =======================Efeitos atingidos no usuario==============================
+async function buscarEfeitosAtingidos(idUsuario, dataAtual) {
+    const resp = await fetch(`${host}/atinge/get-idAtingido?idAtingido=${idUsuario}&data=${dataAtual}`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    return(data);
+}
+
+// ===========================Buscar id Usuario=================================
+async function buscarIdUsuario() {
+    return await( await(procurarUsuario( pegarCookies('ipUsuario'), pegarCookies('apelido'))))[0].id;
+}
+
+// ============================Mensagem de atingido===========================
+async function mensagemAtingido() {
+    let dataAtual = pegarData();
+    let idUsuario = await buscarIdUsuario();
+    let efeitosAtingidos = await buscarEfeitosAtingidos(idUsuario, dataAtual);
+    if(efeitosAtingidos.length>0) {
+        let usuarioAtingiu = await procurarUsuarioId(efeitosAtingidos[0].idUsuario);
+        let efeito = await buscarEfeitosId(efeitosAtingidos[0].idEspecial);
+        mostrarMensagem(`O usuario "${usuarioAtingiu[0].nome}" te atingiu com o efeito "${efeito[0].nome}"!`);
+    }
 }
 
 // ==========================Efeito diario===========================
@@ -307,19 +394,17 @@ async function efeitoDiario() {
         const ipUsuario = pegarCookies('ipUsuario');
         const efeitos = await buscarEfeitos();
         const chance = sorteador(100);
-        const dataEfeito = pegarData();
-        if(chance > 70) {
+        if(chance > 50) {
             let efeitoSorteado;
             if(efeitos.length <= 1) {
                 efeitoSorteado = 0;
             } else {
                 efeitoSorteado = sorteador(efeitos.length);
-
             }
             document.cookie = `bolsadiaria=${data}`;
-            cadastrarEfeitoUsuario(efeitos[efeitoSorteado].id, usuario, ipUsuario);
+            cadastrarEfeitoUsuario(efeitos[efeitoSorteado-1].id, usuario, ipUsuario);
             setImgEfeitoDiario();
-            mostrarMensagem(`Voce ganhou o efeito "${efeitos[efeitoSorteado].nome}", use em alguem no ranking!`)
+            mostrarMensagem(`Voce ganhou o efeito "${efeitos[efeitoSorteado-1].nome}", use em alguem no ranking!`)
         } else {
             document.cookie = `bolsadiaria=${data}`;
             const xpGanhou = sorteador(100);
@@ -471,22 +556,56 @@ async function mostrarResultadoQuestionario(idQuestionario) {
     pararCarregamento();
 }
 
+// ============================Usar efeitos===================
+
+async function usarefeitos() {
+    var efeitos = await buscarEfeitosAtingidos(await buscarIdUsuario(), pegarData());
+    if(efeitos.length>0) {
+        let usuarioAtingiu = await procurarUsuarioId(efeitos[0].idUsuario);
+        let efeito = await buscarEfeitosId(efeitos[0].idEspecial);
+        if(efeito[0].nome === "Congelamento") {
+            experiencia = 0;
+            return({
+                msg: `O usuario "${usuarioAtingiu[0].nome}" te atingiu com o efeito "${efeito[0].nome}"! <br> Voce ganhará 0 de xp`,
+                continua: true,
+                tempo: 3000
+            });
+        }
+    } else {
+        return {
+            msg: true,
+            continua: true,
+            tempo: 0
+        };
+    }
+}
+
 // ======================Mensagem apos execucao questionario=====================
 async function mensagemXp() {
     var ipUsuario = await pegarIp();
     var apelido = pegarCookies('apelido');
+    let tempo = 0;
     if(acertos>=3) {
-        aplausos.play();
-        document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
-        document.getElementById('mensagemQuestionarioXp').style.backgroundColor = '#428eff';
-        document.getElementById('mensagemQuestionarioXp').innerHTML = `
-            <p>Voce acertou ${acertos}/5 e passou!</p>
-            <p>+${experiencia}Xp</p>
-        `;
-        setTimeout(() => {
-            document.getElementById('mensagemQuestionarioXp').style.display = 'none';
-        }, 3000);
-        await ganhaExperiencia(ipUsuario, apelido, experiencia);
+        const msg = await usarefeitos()
+        if(msg.msg != null) {
+            tempo = msg.tempo;
+            await mostrarMensagem(msg.msg);
+        }
+        setTimeout(async () => {
+            if(msg.continua == true) {
+                aplausos.play();
+                document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
+                document.getElementById('mensagemQuestionarioXp').style.backgroundColor = '#428eff';
+                document.getElementById('mensagemQuestionarioXp').innerHTML = `
+                    <p>Voce acertou ${acertos}/5 e passou!</p>
+                    <p>+${experiencia}Xp</p>
+                `;
+                setTimeout(() => {
+                    document.getElementById('mensagemQuestionarioXp').style.display = 'none';
+                }, 3000);
+                await ganhaExperiencia(ipUsuario, apelido, experiencia);
+            }
+        }, tempo);
     } else {
         falha.play();
         document.getElementById('mensagemQuestionarioXp').style.display = 'flex';
