@@ -8,6 +8,7 @@ window.onload = function() {
     })
     // ==============Escutador imagem - fechar modal de efeitos=================
     document.getElementById('fecharModalEfeitos').addEventListener('click', () => {
+        document.getElementById('containerEfeitos').innerHTML = "";
         document.getElementById('modalEfeitos').style.display = 'none';
     })
 
