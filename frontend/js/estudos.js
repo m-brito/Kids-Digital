@@ -54,5 +54,8 @@ function irConteudo(idConteudo) {
 
 function conteudoBloqueado(conteudo, nivel) {
     mostrarMensagem(`O conteudo "${conteudo}" será desbloqueado no nivel ${(nivel)*10}!`);
+}
 
+function contribuicao() {
+    window.location.href = '/cafezinho.html';
 }

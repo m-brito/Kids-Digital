@@ -25,13 +25,16 @@ window.onload = function() {
 
     // ==============Popular Dados======================
     function populaDadosHeroi(xpAtual, xpProximoNivel, nivelAtual, heroi) {
+        console.log(xpAtual, xpProximoNivel)
         let nivelMeuHeroi = nivelAtual;
         if(nivelAtual>4) {
             nivelMeuHeroi = 4;
         }
         let xpNivelAnterior = calculaXpProximoNivel(nivelAtual-1);
+        console.log(xpNivelAnterior);
         xpPercorrido = xpAtual - xpNivelAnterior;
         xpPercorrer = xpProximoNivel - xpNivelAnterior;
+        console.log(xpPercorrido, xpPercorrer)
         let calculoProgresso = (parseFloat((xpPercorrido*100)/xpPercorrer))
         if(calculoProgresso < 0) {
             calculoProgresso = 0;

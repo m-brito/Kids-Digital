@@ -51,8 +51,37 @@ async function mostrarMensagem(mensagem) {
     }, 3000);
 }
 
+// =====================Atualizar IP====================
+async function atualizarIp(ipAntigo, apelido, ipNovo) {
+    await fetch(`${host}/usuario/patch?ip=${ipAntigo}&nome=${apelido}`, {
+        method: "PATCH",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "ip": ipNovo
+        })
+    });
+}
+
 // =============Pegar IP==========
 async function pegarIp() {
+    const resp = await fetch(`https://api.ipify.org?format=json`, {
+        "method": "GET"
+    })
+    const data = await resp.json();
+    let ipAntigo = pegarCookies('ipAntigo');
+    let nome = pegarCookies('apelido');
+    if(ipAntigo != data.ip) {
+        atualizarIp(ipAntigo, nome, data.ip);
+        document.cookie = `ipAntigo=${data.ip}`;
+    }
+    return(data.ip);
+}
+
+// =============Pegar IP-Usuario==========
+async function pegarIpUsuario() {
     const resp = await fetch(`https://api.ipify.org?format=json`, {
         "method": "GET"
     })
@@ -159,7 +188,9 @@ async function cadastrarUsuario(ip, nome) {
             "nome": nome
         })
     });
+    document.cookie = `ipAntigo=${ip}`;
 }
+
 // ====================Cadastrar Atinge================
 async function cadastrarAtinge(dataAtual, idAtingido, idEfeito, idUsuarioAtacando) {
     await fetch(`${host}/atinge/addAtinge`, {
@@ -211,7 +242,7 @@ async function ganhaExperiencia(ip, nome, qtdeExperiencia) {
 // =================Cadastrar Resultado=======================
 async function cadastrarResultado(idQuestionario, acertos) {
     carregamento();
-    var ipUsuario = await pegarIp();
+    var ipUsuario = pegarCookies('ipUsuario');
     var apelido = pegarCookies('apelido');
     var usuario = await procurarUsuario(ipUsuario, apelido);
     var existeResultado = await buscarResultadoQuestionario(idQuestionario, usuario[0].id);
@@ -474,6 +505,19 @@ var experiencia = 0;
 
 // ======================Iniciando questionario====================
 async function fazerQuestionario(id, totalXp, funcaoFechar){
+    const usuario = await procurarUsuario(pegarCookies('ipUsuario'), pegarCookies('apelido'));
+    const questionario = await buscarQuestionarioId(id);
+    let multiplica = 1;
+    if(usuario[0].nivel > 5) {
+        multiplica = Math.floor(usuario[0].nivel/10);
+    }
+    if(funcaoFechar != 'fecharQuestionarioDiario') {
+        if(questionario[0].experiencia*multiplica != totalXp) {
+            totalXp = questionario[0].experiencia*multiplica;
+            pararCarregamento();
+            mostrarMensagem(`O questionario valera ${questionario[0].experiencia*multiplica}`);
+        }
+    }
     pararCarregamento();
     musicaQuestionario.play();
     experiencia = totalXp;
@@ -610,6 +654,7 @@ async function mensagemXp() {
                 `;
                 setTimeout(() => {
                     document.getElementById('mensagemQuestionarioXp').style.display = 'none';
+                    window.location.href = '/estudos.html';
                 }, 3000);
                 await ganhaExperiencia(ipUsuario, apelido, experiencia);
             }
@@ -623,6 +668,7 @@ async function mensagemXp() {
         `;
         setTimeout(() => {
             document.getElementById('mensagemQuestionarioXp').style.display = 'none';
+            window.location.href = '/estudos.html';
         }, 3000);
     }
 }
@@ -633,6 +679,9 @@ async function calcularXpQuestDiario() {
     const ipUsuario = pegarCookies('ipUsuario');
     const nivelUsuario = await (await procurarUsuario(ipUsuario, apelido))[0].nivel;
     let xpLimite = calculaXpProximoNivel(nivelUsuario);
+    if(xpLimite >=20000) {
+        xpLimite = 20000;
+    }
     mostrarMensagem(`Voce pode ganhar de 10xp à ${xpLimite}Xp`);
     const sorte = sorteador(100);
     if(sorte >= 90) {

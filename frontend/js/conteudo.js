@@ -14,7 +14,7 @@ window.onload = function() {
         const usuario = await procurarUsuario(pegarCookies('ipUsuario'), pegarCookies('apelido'));
         let multiplica = 1;
         if(usuario[0].nivel > 5) {
-            multiplica = Math.floor(usuario[0].nivel/5);
+            multiplica = Math.floor(usuario[0].nivel/10);
         }
         const respConteudo = await buscarConteudoId(idConteudo);
         const respQuestionario = await buscarQuestionarioId(respConteudo[0].idQuestionario);

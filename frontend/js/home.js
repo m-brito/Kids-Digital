@@ -4,8 +4,14 @@ window.onload = function() {
     document.querySelector('#homeEntrar').addEventListener('submit', async (event) => {
         event.preventDefault();
         try {
-            const ipUsuario = await pegarIp();
             const apelidoEntrar = document.getElementById('campoApelidoEntrar').value;
+            document.cookie = `apelido=${apelidoEntrar}`;
+            let ipAntigo = pegarCookies('ipAntigo');
+            if(ipAntigo == "") {
+                let ipUsuarioAgora = await pegarIpUsuario();
+                document.cookie = `ipAntigo=${ipUsuarioAgora}`;
+            }
+            const ipUsuario = await pegarIp();
             carregamento();
             const resp = await procurarUsuario(ipUsuario, apelidoEntrar);
             document.getElementById('campoApelidoEntrar').value = '';

@@ -45,6 +45,12 @@
     background-color: #dd2020;
 }
 
+#btnCafezinho{
+    margin-top: 10px;
+    width: 204px;
+    background-color: #4bce56;
+}
+
 #imagensCabecalho{
     flex-wrap: initial;
 }
@@ -128,12 +134,12 @@
 }
 
 /* =======================Questionario diario==================== */
-#questionarioDiario, #efeitoDiario{
+#questionarioDiario, #efeitoDiario, #btnCafezinhoImg{
     background-color: transparent;
     border: 0;
     cursor: pointer;
 }
-#questionarioDiario img, #efeitoDiario img{
+#questionarioDiario img, #efeitoDiario img, #btnCafezinhoImg img{
     height: 100px;
     top: 0;
     display: flex;
@@ -143,7 +149,7 @@
 }
 
 /* =======================Responsividade - Estudos==================== */
-@media(max-width: 700px) {
+@media(max-width: 750px) {
     #estudosPrincipal #estudosConteudo #estudoConteudoMateriais{
         flex-direction: column;
     }
@@ -167,5 +173,19 @@
     #estudosPrincipal #estudosCabecalho #imagensCabecalho{
         margin: 35px 0;
         text-align: center;
+    }
+    #btnCafezinhoImg{
+        display: none;
+    }
+    #btnCafezinho{
+        display: initial;
+    }
+}
+@media(min-width: 750px) {
+    #btnCafezinhoImg{
+        display: initial;
+    }
+    #btnCafezinho{
+        display: none;
     }
 }

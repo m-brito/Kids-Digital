@@ -190,6 +190,9 @@ body{
 
 /* ==============Responsividade============= */
 @media screen and (max-width: 750px) {
+    #homeCabecalho img{
+        height: 100px;
+    }
     #homeConteudo img:not(img#imgPrincipal) {
         display: none;
     }
