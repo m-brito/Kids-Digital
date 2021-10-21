@@ -16,6 +16,9 @@ window.onload = function() {
         if(usuario[0].nivel > 5) {
             multiplica = Math.floor(usuario[0].nivel/10);
         }
+        if(multiplica > 8) {
+            multiplica = 8;
+        }
         const respConteudo = await buscarConteudoId(idConteudo);
         const respQuestionario = await buscarQuestionarioId(respConteudo[0].idQuestionario);
         if(respConteudo.length > 0) {
