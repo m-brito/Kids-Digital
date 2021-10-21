@@ -502,9 +502,11 @@ var numeroPergunta = 1;
 var acertos = 0;
 var perguntas;
 var experiencia = 0;
+var nomeFuncao = "";
 
 // ======================Iniciando questionario====================
 async function fazerQuestionario(id, totalXp, funcaoFechar){
+    nomeFuncao = funcaoFechar.toString();
     const usuario = await procurarUsuario(pegarCookies('ipUsuario'), pegarCookies('apelido'));
     const questionario = await buscarQuestionarioId(id);
     let multiplica = 1;
@@ -527,17 +529,17 @@ async function fazerQuestionario(id, totalXp, funcaoFechar){
     perguntas = await buscarPerguntasQuestionario(id);
     pararCarregamento();
     document.getElementById('containerQuestionario').style.display = 'flex';
-    mostrarPergunta(funcaoFechar);
+    mostrarPergunta();
 }
 
 // ============================Mostrar Pergunta - Modal==================
-function mostrarPergunta(funcaoFechar) {
+function mostrarPergunta() {
     carregamento();
     // <span><p>Acertos: ${acertos}</p></span>
     document.getElementById('perguntas').innerHTML = `
         <div id="cabecalhoCartao">
             <span><p>${numeroPergunta}/5</p></span>
-            <button onclick="${funcaoFechar}()" id="sairQuestionario">Sair</button>
+            <button onclick="${nomeFuncao}()" id="sairQuestionario">Sair</button>
         </div>
         <div id="conteudoQuestionario">
             <div id="pergunta">
@@ -545,12 +547,12 @@ function mostrarPergunta(funcaoFechar) {
             </div>
             <div id="alternativas">
                 <div class="grupo">
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].a}</button>
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].b}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].a}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].b}</button>
                 </div>
                 <div class="grupo">
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].c}</button>
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].d}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].c}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].d}</button>
                 </div>
             </div>
         </div>
@@ -559,7 +561,7 @@ function mostrarPergunta(funcaoFechar) {
 }
 
 // ====================Correcao de resposta/Avancar para proxima pergunta=====================
-async function verificarResposta(resposta, idQuestionario, funcaoFechar) {
+async function verificarResposta(resposta, idQuestionario) {
     carregamento();
     const respPerguntas = await buscarPerguntasQuestionario(idQuestionario);
     for(let x = 0; x < respPerguntas.length; x++) {
@@ -571,7 +573,7 @@ async function verificarResposta(resposta, idQuestionario, funcaoFechar) {
     }
     if(numeroPergunta<5) {
         numeroPergunta++;
-        mostrarPergunta(funcaoFechar);
+        mostrarPergunta(nomeFuncao);
     } else {
         musicaQuestionario.pause();
         musicaQuestionario.currentTime = 0;
