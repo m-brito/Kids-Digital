@@ -545,12 +545,12 @@ function mostrarPergunta(funcaoFechar) {
             </div>
             <div id="alternativas">
                 <div class="grupo">
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].a}</button>
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].b}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].a}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].b}</button>
                 </div>
                 <div class="grupo">
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].c}</button>
-                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario})">${perguntas[numeroPergunta-1].d}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].c}</button>
+                    <button id="${perguntas[numeroPergunta-1].id}" onclick="verificarResposta(this, ${perguntas[numeroPergunta-1].idQuestionario}, ${funcaoFechar})">${perguntas[numeroPergunta-1].d}</button>
                 </div>
             </div>
         </div>
@@ -559,7 +559,7 @@ function mostrarPergunta(funcaoFechar) {
 }
 
 // ====================Correcao de resposta/Avancar para proxima pergunta=====================
-async function verificarResposta(resposta, idQuestionario) {
+async function verificarResposta(resposta, idQuestionario, funcaoFechar) {
     carregamento();
     const respPerguntas = await buscarPerguntasQuestionario(idQuestionario);
     for(let x = 0; x < respPerguntas.length; x++) {
@@ -571,7 +571,7 @@ async function verificarResposta(resposta, idQuestionario) {
     }
     if(numeroPergunta<5) {
         numeroPergunta++;
-        mostrarPergunta();
+        mostrarPergunta(funcaoFechar);
     } else {
         musicaQuestionario.pause();
         musicaQuestionario.currentTime = 0;
