@@ -513,6 +513,9 @@ async function fazerQuestionario(id, totalXp, funcaoFechar){
     if(usuario[0].nivel > 5) {
         multiplica = Math.floor(usuario[0].nivel/10);
     }
+    if(multiplica > 8) {
+        multiplica = 8;
+    }
     if(funcaoFechar != 'fecharQuestionarioDiario') {
         if(questionario[0].experiencia*multiplica != totalXp) {
             totalXp = questionario[0].experiencia*multiplica;
