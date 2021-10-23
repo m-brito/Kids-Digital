@@ -1,0 +1,47 @@
+#cafezinhoPrincipal{
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#cafezinhoPrincipal #voltar{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+}
+
+#cafezinhoPrincipal{
+    color: white;
+}
+#cafezinhoPrincipal h1{
+    font-size: 70px;
+}
+
+#cafezinhoPrincipal #coteudoCafezinho{
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#cafezinhoPrincipal #coteudoCafezinho img{
+    height: 300px;
+    width: auto;
+}
+#cafezinhoPrincipal #coteudoCafezinho h2{
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+@media(max-width: 750px) {
+    #cafezinhoPrincipal #coteudoCafezinho{
+        flex-direction: column;
+        width: 80%;
+    }
+}
